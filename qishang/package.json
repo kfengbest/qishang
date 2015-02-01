@@ -1,0 +1,10 @@
+{
+  "name": "qishang",
+  "version": "0.0.0",
+  "description": "qishang",
+  "main": "app.js",
+  "author": {
+    "name": "Coder",
+    "email": ""
+  }
+}
