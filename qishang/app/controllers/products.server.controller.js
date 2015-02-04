@@ -73,7 +73,7 @@ exports.delete = function(req, res) {
  * List of Products
  */
 exports.list = function(req, res) { 
-	Product.find().sort('-created').populate('user', 'displayName').exec(function(err, products) {
+	Product.find().sort('-created').exec(function(err, products) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -88,7 +88,7 @@ exports.list = function(req, res) {
  * Product middleware
  */
 exports.productByID = function(req, res, next, id) { 
-	Product.findById(id).populate('user', 'displayName').exec(function(err, product) {
+	Product.findById(id).exec(function(err, product) {
 		if (err) return next(err);
 		if (! product) return next(new Error('Failed to load Product ' + id));
 		req.product = product ;

@@ -7,161 +7,112 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 /**
- * Comment Schema
+ * Getters / Setters for categories
  */
-var CommentSchema = new Schema({
-	user: { 
-		type: mongoose.Schema.Types.ObjectId, 
-		ref: 'User' 
-	},
-	comment: { 
-		type: String
-	},
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	state: {
-		type: String,
-		default: 'reviewing'
-	}
-});
+var getCategories= function (categories) {
+  return categories.join(',');
+};
+var setCategories = function (categories) {
+  return categories.split(',');
+};	
 
 /**
- * Certificate Schema
+ * Getters / Setters for tags
  */
-var CertificateSchema = new Schema({
-	identity: {
-		type: String,
-		require: true,
-		unique: true
-	},
-	image: {
-		type: String
-	}
-});
+var getTags = function (tags) {
+  return tags.join(',');
+};
+var setTags = function (tags) {
+  return tags.split(',');
+};
+
+/**
+ * Getters / Setters for usages
+ */
+var getUsages = function (usages) {
+  return usages.join(',');
+};
+var setUsages = function (usages) {
+  return usages.split(',');
+};
+
+/**
+ * Getters / Setters for promises
+ */
+var getPromises = function (promises) {
+  return promises.join(',');
+};
+var setPromises = function (promises) {
+  return promises.split(',');
+};
 
 /**
  * Product Schema
  */
 var ProductSchema = new Schema({
-	sku: {
-		type: String,
-		unique: true,
-		required: 'Please fill Product SKU'
-	},
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Product name',
-		trim: true
-	},
-	description: {
-		type: String,
-		default: '',
-		required: 'Please fill Product description',
-		trim: true
-	},
-	longDescription: {
-		type: String,
-		default: '',
-		trim: true
-	},
-	thumbnail: {
-		type: String,
-		required: 'Please upload Product main picture'
-	},
-	picture: {
-		type: [String],
-		default: []
-	},
-	price: {
-		type: Number,
-		default: '9999999',
-		required: 'Please fill Product price'
-	},
-	originPrice: {
-		type: Number,
-		default: '0',
-		required: 'Please fill Product original price'
-	},
-	// 有机/宝石/翡翠/玉石/水晶/玉髓/玛瑙/彩色宝石
-	category: {
-		type: [String],
-		default: [],
-		required: 'Please fill Product category'
-	},
-	// 款式： 项链/吊坠/耳饰/发饰/手链/手镯/戒指/胸针/摆件/把件/其他
-	style: {
-		type: String,
-		default: ''
-	},
-	// 材质： 石榴石/密蜡
-	material: {
-		typ: String,
-		default: '',
-		// required: 'Please fill Product material'
-	},
-	// 翡翠种地： 不限/冰种/冰糯种/糯种/玻璃种
-	jadeKind: {
-		type: String,
-		default: ''
-	},
-	size: {
-		type: String,
-		default: ''
-	},
-	// Tag: 热门/最新上架/精品推荐
-	tag: {
-		type: [String],
-		default: []
-	},
-	// 用途： 招财/辟邪
-	usage: {
-		type: String,
-		default: ''
-	},
-	detail: {
-		type: {},
-	},
-	content: {
-		type: String
-	},
-	comments: {
-		type: [CommentSchema],
-		default: []
-	},
-	// 收藏用户链表
-	favorite: {
-		type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-		default: []
-	},
+	sku: { type: String, default: '', unique: true, trim: true },
+	name: { type: String, default: '', trim: true },
+	description: { type: String, default: '', trim: true },
+	longDescription: { type: String, default: '', trim: true },
+	thumbnail: { uri: String, files: [] },
+	pictures: [{ uri: String, files: [] }],
+	price: { type: Number, default: '9999999' },
+	originPrice: { type: Number, default: '0' },
+
+	categories: { type: [],  get: getCategories, set: setCategories }, // 有机/宝石/翡翠/玉石/水晶/玉髓/玛瑙/彩色宝石
+	style: { type: String, default: '', trim: true }, // 款式： 项链/吊坠/耳饰/发饰/手链/手镯/戒指/胸针/摆件/把件/其他
+	material: { type: String, default: '', trim: true }, // 材质： 石榴石/密蜡
+	jadeKind: { type: String, default: '', trim: true }, // 翡翠种地： 不限/冰种/冰糯种/糯种/玻璃种
+	size: { type: String, default: '', trim: true },
+
+	tags: { type: [], get: getTags, set: setTags }, // Tag: 热门/最新上架/精品推荐
+	usages: { type: [], get: getUsages, set: setUsages }, // 用途： 招财/辟邪
+	detail: { type: {} },
+	content: { type: String },
+	comments: [{
+    	star: { type: Number, default: 5},
+    	body: { type : String, default : '' },
+    	user: { type : Schema.ObjectId, ref : 'User' },
+    	createdAt: { type : Date, default : Date.now },
+    	state: {type: String, default: 'reviewing', trim: true}
+  	}],
+  	// 收藏用户链表
+	favorite: [ { user: { type : Schema.ObjectId, ref : 'User' } }],
 	// 点赞数
-    favNumber: {
-    	type: Number,
-    },
-    certificate: {
-    	type: {type: Schema.Types.ObjectId, ref: 'Certificate'}
-    },
-    suitTypes: {
-    	type: [String]
-    },
-    state: {
-    	type: String,
-    	default: 'onSale'
-    },
-    promise: {
-    	type: [String]
-    },
-    packageInfo: {
-    	type: {}
-    },
-	created: {
-		type: Date,
-		default: Date.now
-	},
+    favNumber: { type: Number },
+
+    certificateID: { type: { type: String, default: '', trim: true } },
+    certificateImage: { uri: String, files: [] },
+    suitTypes: { type: {} },
+    state: { type: String, efault: 'onSale' },
+    promises: { type: [],  get: getPromises, set: setPromises },
+    packageInfo: { type: {} },
+	created: { type: Date, default: Date.now }
 });
 
-mongoose.model('Comment', CommentSchema);
-mongoose.model('Certificate', CertificateSchema);
+// Todo:
+ProductSchema.path('sku').required(true, 'Product sku cannot be blank');
+ProductSchema.path('name').required(true, 'Product name cannot be blank');
+ProductSchema.path('description').required(true, 'Product description cannot be blank');
+ProductSchema.path('price').required(true, 'Product price cannot be blank');
+
+
+/**
+ * Methods
+ */
+ProductSchema.methods = {
+  addComment: function (user, comment, cb) {
+    // Todo: notify producter
+    //var notify = require('../mailer');
+
+    this.comments.push({
+      star: comment.star,
+      body: comment.body,
+      user: user._id
+    });
+
+    this.save(cb);
+  },
+};
+
 mongoose.model('Product', ProductSchema);
