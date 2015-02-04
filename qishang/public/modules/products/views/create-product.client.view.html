@@ -6,17 +6,104 @@
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
+                    <label class="control-label" for="sku">产品编号</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="sku" id="sku" class="form-control" placeholder="产品编号" required>
+                    </div>
+                    <label class="control-label" for="name">产品名</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="产品名" required>
+                    </div>
+                    <label class="control-label" for="description">描述</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="description" id="description" class="form-control" placeholder="一句话概述" required>
+                    </div>
+                    <label class="control-label" for="longDescription">详细描述</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="longDescription" id="longDescription" class="form-control" placeholder="详细描述" required>
+                    </div>
+                    <label class="control-label" for="thumbnail">图片</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="thumbnail" id="thumbnail" class="form-control" placeholder="图片" required>
+                    </div>
+                    <label class="control-label" for="pictures">更多图片</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="pictures" id="pictures" class="form-control" placeholder="更多图片" required>
+                    </div>
+                    <label class="control-label" for="price">价格</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="price" id="price" class="form-control" placeholder="0" required>
+                    </div>
+                    <label class="control-label" for="originPrice">市场价格</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="originPrice" id="originPrice" class="form-control" placeholder="999999" required>
+                    </div>
+                    <label class="control-label" for="category">类别</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="category" id="category" class="form-control" placeholder="有机/宝石/翡翠/玉石/..." required>
+                    </div>
+                    <label class="control-label" for="style">款式</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="style" id="style" class="form-control" placeholder="项链/吊坠/耳饰/...">
+                    </div>
+                    <label class="control-label" for="material">材质</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="material" id="material" class="form-control" placeholder="石榴石/密蜡/..." required>
+                    </div>
+                    <label class="control-label" for="jadeKind">种地</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="jadeKind" id="jadeKind" class="form-control" placeholder="不限/冰种/冰糯种/糯种/玻璃种..." required>
+                    </div>
+                    <label class="control-label" for="size">尺寸</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="size" id="size" class="form-control" placeholder="大/中/小/..." required>
+                    </div>
+                    <label class="control-label" for="tag">标签</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="tag" id="tag" class="form-control" placeholder="项热门/最新上架/精品推荐/..." required>
+                    </div>
+                    <label class="control-label" for="usage">功用</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="usage" id="usage" class="form-control" placeholder="招财/辟邪/..." required>
+                    </div>
+                    <label class="control-label" for="detail">产品详情</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="detail" id="detail" class="form-control" placeholder="">
+                    </div>
+                    <label class="control-label" for="content">产品介绍</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="content" id="content" class="form-control" placeholder="">
+                    </div>
+
+                    <label class="control-label" for="certificateID">证书编号</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="certificateID" id="certificateID" class="form-control" placeholder="">
+                    </div>
+                    <label class="control-label" for="certificateImage">证书图片</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="certificateImage" id="certificateImage" class="form-control" placeholder="">
+                    </div>
+
+                    <label class="control-label" for="suitInfo">匹配信息</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="suitInfo" id="suitInfo" class="form-control" placeholder="">
+                    </div>
+                    <label class="control-label" for="promise">承诺</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="promise" id="promise" class="form-control" placeholder="包邮/7天退货">
+                    </div>
+                    <label class="control-label" for="packageInfo">包装信息</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="packageInfo" id="packageInfo" class="form-control" placeholder="">
                     </div>
                 </div>
+
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
             </fieldset>
         </form>
     </div>
