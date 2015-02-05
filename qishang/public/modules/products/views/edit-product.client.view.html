@@ -36,35 +36,35 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="thumbnail">图片</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="product.thumbnail" id="thumbnail" class="form-control" placeholder="图片" required>
+                        <input type="text" data-ng-model="product.thumbnail" id="thumbnail" class="form-control" placeholder="图片" >
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="pictures">更多图片</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="product.pictures" id="pictures" class="form-control" placeholder="更多图片" required>
+                        <input type="text" data-ng-model="product.pictures" id="pictures" class="form-control" placeholder="更多图片" >
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="price">价格</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="product.price" id="price" class="form-control" placeholder="0" required>
+                        <input type="text" data-ng-model="product.price" id="price" class="form-control" placeholder="0" >
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="originPrice">市场价格</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="product.originPrice" id="originPrice" class="form-control" placeholder="999999" required>
+                        <input type="text" data-ng-model="product.originPrice" id="originPrice" class="form-control" placeholder="999999" >
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="category">类别</label>
+                    <label class="col-sm-2 control-label" for="categories">类别</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="product.category" id="category" class="form-control" placeholder="有机/宝石/翡翠/玉石/..." required>
+                        <input type="text" data-ng-model="product.categories" id="categories" class="form-control" placeholder="有机/宝石/翡翠/玉石/..." >
                     </div>
                 </div>
 
@@ -78,35 +78,35 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="material">材质</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="product.material" id="material" class="form-control" placeholder="石榴石/密蜡/..." required>
+                        <input type="text" data-ng-model="product.material" id="material" class="form-control" placeholder="石榴石/密蜡/..." >
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="jadeKind">种地</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="product.jadeKind" id="jadeKind" class="form-control" placeholder="不限/冰种/冰糯种/糯种/玻璃种..." required>
+                        <input type="text" data-ng-model="product.jadeKind" id="jadeKind" class="form-control" placeholder="不限/冰种/冰糯种/糯种/玻璃种..." >
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="size">尺寸</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="product.size" id="size" class="form-control" placeholder="大/中/小/..." required>
+                        <input type="text" data-ng-model="product.size" id="size" class="form-control" placeholder="大/中/小/..." >
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="tag">标签</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="product.tag" id="tag" class="form-control" placeholder="项热门/最新上架/精品推荐/..." required>
+                        <input type="text" data-ng-model="product.tag" id="tag" class="form-control" placeholder="项热门/最新上架/精品推荐/..." >
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="usage">功用</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="product.usage" id="usage" class="form-control" placeholder="招财/辟邪/..." required>
+                        <input type="text" data-ng-model="product.usage" id="usage" class="form-control" placeholder="招财/辟邪/..." >
                     </div>
                 </div>
 
@@ -162,7 +162,9 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" value="保存" class="btn btn-default">
+                    </div>
                 </div>
                 <div data-ng-show="error" class="text-danger">
                     <strong data-ng-bind="error"></strong>

@@ -81,7 +81,7 @@ var ProductSchema = new Schema({
 	// 点赞数
   favNumber: { type: Number },
 
-  certificateID: { type: { type: String, default: '', trim: true } },
+  certificateID: { type: String, default: '', trim: true },
   certificateImage: { uri: String, files: [] },
   suitTypes: { type: {} },
   state: { type: String, efault: 'onSale' },
