@@ -9,7 +9,21 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 		$scope.create = function() {
 			// Create new Product object
 			var product = new Products ({
-				name: this.name
+				sku: this.sku,
+				name: this.name,
+				description: this.description,
+				longDescription: this.longDescription,
+				thumbnail: this.thumbnail,
+				price: this.price,
+				originPrice: this.originPrice,
+
+				categories: this.categories,
+				style: this.style,
+				material: this.material,
+				jadeKind: this.jadeKind,
+				size: this.size
+
+				// TODO: other properties
 			});
 
 			// Redirect after save

@@ -79,14 +79,14 @@ var ProductSchema = new Schema({
   	// 收藏用户链表
 	favorite: [ { user: { type : Schema.ObjectId, ref : 'User' } }],
 	// 点赞数
-    favNumber: { type: Number },
+  favNumber: { type: Number },
 
-    certificateID: { type: { type: String, default: '', trim: true } },
-    certificateImage: { uri: String, files: [] },
-    suitTypes: { type: {} },
-    state: { type: String, efault: 'onSale' },
-    promises: { type: [],  get: getPromises, set: setPromises },
-    packageInfo: { type: {} },
+  certificateID: { type: { type: String, default: '', trim: true } },
+  certificateImage: { uri: String, files: [] },
+  suitTypes: { type: {} },
+  state: { type: String, efault: 'onSale' },
+  promises: { type: [],  get: getPromises, set: setPromises },
+  packageInfo: { type: {} },
 	created: { type: Date, default: Date.now }
 });
 
