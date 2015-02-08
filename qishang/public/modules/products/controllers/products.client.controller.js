@@ -82,7 +82,7 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
     	});
 
     	$scope.uploadInProgress = false;
-        $scope.uploadProgress = 0;
+        $scope.uploadProgress = '0%';
 
     	$scope.uploadThumbnail = function (files) {
 	        if (files && files.length) {
@@ -92,16 +92,19 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 	                fields: { 'username': $scope.username},
 	                file: file
 	            }).progress(function (evt) {
-	            	$scope.$apply( function(){
 	            	$scope.uploadInProgress = true;
-	                $scope.uploadProgress = Math.floor(event.loaded / event.total);
+	            	var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+	                $scope.uploadProgress = progressPercentage + '% ';
 	            }).success(function (data, status, headers, config) {
 	            	$scope.uploadInProgress = false;
 	                console.log('File ' + config.file.name + 'uploaded. Response: ' + JSON.stringify(data));
+	                console.log(data.url);
+	                $scope.thumbnail = data.url;
 	            }).error(function(err) {
 	            	$scope.uploadInProgress = false;
 	            	console.warn('Error uploading file: ' + err.message || err);
 	        	});
 			}
 		};
-}]);
+	}
+]);
