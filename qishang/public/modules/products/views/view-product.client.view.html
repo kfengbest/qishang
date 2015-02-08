@@ -1,21 +1,76 @@
 <section data-ng-controller="ProductsController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="product.name"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == product.user._id))">
-		<a class="btn btn-primary" href="/#!/products/{{product._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
+    <div class="wrap-container">
+        <div class="row">
+            <div id="breadcrumb">
+                <ol class="breadcrumb"></ol>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12  main-column">
+                <div id="content">
+                    <div class="product-info">
+                        <div class="row">
+                            <div class="col-lg-7 col-sm-6 image-container">
+                                <div class="image">
+                                    <a ng-href="{{product.thumbnail}}" class="colorbox cboxElement">
+                                        <img data-ng-src="{{product.thumbnail}}" title="{{product.name}}" alt="{{product.name}}" id="image" data-zoom-image="{{product.thumbnail}}" class="product-image-zoom">
+                                    </a>
+                                </div>
+
+                                <div class="image-additional slide carousel" id="image-additional">
+                                    <div id="image-additional-carousel" class="carousel-inner">
+                                        <div class="item active">
+                                            <a ng-href="{{product.thumbnail}}" title="{{product.name}}" class="" data-zoom-image="{{product.thumbnail}}" data-image="{{product.thumbnail}}">
+                                                <img ng-src="{{product.thumbnail}}" style="max-width:114px" title="{{product.name}}" alt="{{product.name}}" data-zoom-image="{{product.thumbnail}}" class="product-image-zoom">
+                                            </a>
+
+                                        </div>
+                                        <a class="carousel-control left" href="#image-additional" data-slide="prev">‹</a>
+                                        <a class="carousel-control right" href="#image-additional" data-slide="next">›</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-sm-6">
+                                <h1>{{product.name}}</h1>
+
+                                <div class="description">
+                                    <span>描述:</span>{{prodcut.description}}
+                                    <br>
+                                </div>
+
+                                <div class="price-cart">
+                                    <div class="price"> {{product.price | currency:"￥ "}}</div>
+                                    <div class="product-extra">
+
+                                        <input type="hidden" name="product_id" value="43"> &nbsp;
+                                        <!-- <input type="button" value="Add to Cart" id="button-cart" class="button" />-->
+                                        <button class="button" id="button-cart">
+                                            <span class="fa fa-shopping-cart icon"></span>
+                                            <span>Add to Cart</span>
+                                        </button>
+                                        <!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> -->
+
+                                    </div>
+                                </div>
+                                <div class="compare-wish">
+                                	<span class="links">
+                                		<a class="wishlist" onclick="addToWishList('43');">Add to Wish List</a>
+            							<a class="compare" onclick="addToCompare('43');">Add to Compare</a>
+            						</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <small>
+						<em class="text-muted">
 			Posted on
 			<span data-ng-bind="product.created | date:'mediumDate'"></span>
 			by
 			<span data-ng-bind="product.user.displayName"></span>
-		</em>
-	</small>
+						</em>
+					</small>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

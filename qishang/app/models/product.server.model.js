@@ -54,7 +54,7 @@ var ProductSchema = new Schema({
 	name: { type: String, default: '', trim: true },
 	description: { type: String, default: '', trim: true },
 	longDescription: { type: String, default: '', trim: true },
-	thumbnail: { uri: String, files: [] },
+	thumbnail: { type: String, default: '', trim: true},
 	pictures: [{ uri: String, files: [] }],
 	price: { type: Number, default: '9999999' },
 	originPrice: { type: Number, default: '0' },

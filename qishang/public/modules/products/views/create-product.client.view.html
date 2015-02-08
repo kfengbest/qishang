@@ -1,181 +1,194 @@
 <section data-ng-controller="ProductsController">
-    <div class="page-header">
-        <h1>New Product</h1>
-    </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" role="form" data-ng-submit="create()" novalidate enctype="multipart/form-data" >
-            <input type="hidden" name="_csrf" value="{{ csrf_token }}">
 
-            <fieldset>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="sku">产品编号</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="sku" id="sku" class="form-control" placeholder="产品编号" required>
-                    </div>
+    <div class="wrap-container">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12  main-column">
+                <div class="page-header">
+                    <h1>New Product</h1>
                 </div>
+                <form class="form-horizontal" role="form" data-ng-submit="create()" novalidate enctype="multipart/form-data">
+                    <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-4 image-container">
+                                <div class="image" style="width: 469px; height: 310px;">
+                                    <a ng-href="{{thumbnail}}" class="colorbox cboxElement">
+                                        <img data-ng-src="{{thumbnail}}" data-ng-if="thumbnail" id="image" data-zoom-image="{{thumbnail}}" class="product-image-zoom">
+                                    </a>
+                                </div>
+                                <div>
+                                <input type="file" ng-file-select="" ng-model="thumbnailFile" name="thumbnail" accept="image/*">
+                                    <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+                                    </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="name">产品名</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="产品名" required>
-                    </div>
-                </div>
+                            <div class="col-lg-6 col-sm-8">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="sku">产品编号</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" data-ng-model="sku" id="sku" class="form-control" placeholder="产品编号" required>
+                                        </div>
+                                    </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="description">描述</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="description" id="description" class="form-control" placeholder="一句话概述" required>
-                    </div>
-                </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="name">产品名</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="产品名" required>
+                                        </div>
+                                    </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="longDescription">详细描述</label>
-                    <div class="col-sm-10">
-                        <Textarea class="form-control" rows="3"data-ng-model="longDescription" id="longDescription" class="form-control" placeholder="详细描述"> </Textarea>
-                    </div>
-                </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="price">价格</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" data-ng-model="price" id="price" class="form-control" placeholder="0" required>
+                                        </div>
+                                    </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="thumbnail">图片</label>
-                    <div class="col-sm-10">
-                       <input type="file" ng-file-select="" ng-model="thumbnailFile" name="thumbnail" accept="image/*">
-                        <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
-                        <img data-ng-src="{{thumbnail}}" data-ng-if="thumbnail">
-                    </div>
-                </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="originPrice">市场价格</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" data-ng-model="originPrice" id="originPrice" class="form-control" placeholder="999999" required>
+                                        </div>
+                                    </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="pictures">更多图片</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="pictures" id="pictures" class="form-control" placeholder="更多图片" required>
-                    </div>
-                </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="description">描述</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" data-ng-model="description" id="description" class="form-control" placeholder="一句话概述" required>
+                                        </div>
+                                    </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="price">价格</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="price" id="price" class="form-control" placeholder="0" required>
-                    </div>
-                </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="longDescription">详细描述</label>
+                                        <div class="col-sm-9">
+                                            <Textarea class="form-control" rows="3" data-ng-model="longDescription" id="longDescription" class="form-control" placeholder="详细描述"> </Textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="originPrice">市场价格</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="originPrice" id="originPrice" class="form-control" placeholder="999999" required>
-                    </div>
-                </div>
+                        <div class="row">
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="categories">类别</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="categories" id="categories" class="form-control" placeholder="有机/宝石/翡翠/玉石/..." >
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="pictures">更多图片</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="pictures" id="pictures" class="form-control" placeholder="更多图片" required>
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="style">款式</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="style" id="style" class="form-control" placeholder="项链/吊坠/耳饰/...">
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="categories">类别</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="categories" id="categories" class="form-control" placeholder="有机/宝石/翡翠/玉石/...">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="material">材质</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="material" id="material" class="form-control" placeholder="石榴石/密蜡/..." >
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="style">款式</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="style" id="style" class="form-control" placeholder="项链/吊坠/耳饰/...">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="jadeKind">种地</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="jadeKind" id="jadeKind" class="form-control" placeholder="不限/冰种/冰糯种/糯种/玻璃种..." >
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="material">材质</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="material" id="material" class="form-control" placeholder="石榴石/密蜡/...">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="size">尺寸</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="size" id="size" class="form-control" placeholder="大/中/小/..." >
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="jadeKind">种地</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="jadeKind" id="jadeKind" class="form-control" placeholder="不限/冰种/冰糯种/糯种/玻璃种...">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="tag">标签</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="tag" id="tag" class="form-control" placeholder="项热门/最新上架/精品推荐/..." >
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="size">尺寸</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="size" id="size" class="form-control" placeholder="大/中/小/...">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="usage">功用</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="usage" id="usage" class="form-control" placeholder="招财/辟邪/..." >
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="tag">标签</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="tag" id="tag" class="form-control" placeholder="项热门/最新上架/精品推荐/...">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="detail">产品详情</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="detail" id="detail" class="form-control" placeholder="">
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="usage">功用</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="usage" id="usage" class="form-control" placeholder="招财/辟邪/...">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="content">产品介绍</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="content" id="content" class="form-control" placeholder="">
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="detail">产品详情</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="detail" id="detail" class="form-control" placeholder="">
+                                </div>
+                            </div>
 
-                <div class="form-group">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="content">产品介绍</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="content" id="content" class="form-control" placeholder="">
+                                </div>
+                            </div>
 
-                    <label class="col-sm-2 control-label" for="certificateID">证书编号</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="certificateID" id="certificateID" class="form-control" placeholder="">
-                    </div>
-                </div>
+                            <div class="form-group">
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="certificateImage">证书图片</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="certificateImage" id="certificateImage" class="form-control" placeholder="">
-                    </div>
-                </div>
+                                <label class="col-sm-2 control-label" for="certificateID">证书编号</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="certificateID" id="certificateID" class="form-control" placeholder="">
+                                </div>
+                            </div>
 
-                <div class="form-group">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="certificateImage">证书图片</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="certificateImage" id="certificateImage" class="form-control" placeholder="">
+                                </div>
+                            </div>
 
-                    <label class="col-sm-2 control-label" for="suitInfo">匹配信息</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="suitInfo" id="suitInfo" class="form-control" placeholder="">
-                    </div>
-                </div>
+                            <div class="form-group">
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="promise">承诺</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="promise" id="promise" class="form-control" placeholder="包邮/7天退货">
-                    </div>
-                </div>
+                                <label class="col-sm-2 control-label" for="suitInfo">匹配信息</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="suitInfo" id="suitInfo" class="form-control" placeholder="">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="packageInfo">包装信息</label>
-                    <div class="col-sm-10">
-                        <input type="text" data-ng-model="packageInfo" id="packageInfo" class="form-control" placeholder="">
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="promise">承诺</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="promise" id="promise" class="form-control" placeholder="包邮/7天退货">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <input type="submit" value="创建" class="btn btn-primary">
-                        &nbsp;
-                        <a href="/#!/products" class="btn btn-link">Cancel</a>
-                    </div>
-                </div>
-                <div data-ng-show="error" class="text-danger">
-                    <strong data-ng-bind="error"></strong>
-                </div>
-            </fieldset>
-        </form>
-    </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="packageInfo">包装信息</label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-ng-model="packageInfo" id="packageInfo" class="form-control" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <input type="submit" value="创建" class="btn btn-primary"> &nbsp;
+                                    <a href="/#!/products" class="btn btn-link">Cancel</a>
+                                </div>
+                            </div>
+                            <div data-ng-show="error" class="text-danger">
+                                <strong data-ng-bind="error"></strong>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
 </section>
