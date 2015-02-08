@@ -10,6 +10,9 @@ module.exports = function(app) {
 		.post(products.create);
 		// TODO: .post(users.requiresLogin, products.create);
 
+	 app.route('/products/upload/image')
+    	.post(products.uploadImage);
+
 	app.route('/products/:productId')
 		.get(products.read)
 		.put(products.update)

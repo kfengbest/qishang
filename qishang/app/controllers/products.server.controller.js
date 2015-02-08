@@ -26,6 +26,10 @@ exports.create = function(req, res) {
 	});
 };
 
+exports.uploadImage = function(req, res) {
+     res.jsonp(req.files);
+  };
+
 /**
  * Show the current Product
  */

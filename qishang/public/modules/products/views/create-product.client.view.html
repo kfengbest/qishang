@@ -38,9 +38,9 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="thumbnail">图片</label>
                     <div class="col-sm-10">
-                        Upload image <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
+                       <input type="file" ng-file-select="" ng-model="thumbnailFile" name="thumbnail" accept="image/*">
                         <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
-                        <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
+                        <img data-ng-src="thumbnail" data-ng-if="thumbnail">
                     </div>
                 </div>
 
