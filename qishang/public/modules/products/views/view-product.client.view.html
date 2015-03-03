@@ -17,12 +17,12 @@
 
                                 <div class="image-additional slide carousel" id="image-additional">
                                     <div id="image-additional-carousel" class="carousel-inner">
-                                        <div class="item active">
-                                            <a ng-href="{{product.thumbnail}}" title="{{product.name}}" class="" data-zoom-image="{{product.thumbnail}}" data-image="{{product.thumbnail}}">
-                                                <img ng-src="{{product.thumbnail}}" style="max-width:114px" title="{{product.name}}" alt="{{product.name}}" data-zoom-image="{{product.thumbnail}}" class="product-image-zoom">
+                                        <div nclass="item active" ng-repeat="picture in product.pictures">
+                                            <a ng-href="{{picture}}"  class="" data-zoom-image="{{picture}}" data-image="{{picture}}">
+                                                <img ng-src="{{picture}}" style="max-width:114px" data-zoom-image="{{picture}}" class="product-image-zoom">
                                             </a>
-
                                         </div>
+
                                         <a class="carousel-control left" href="#image-additional" data-slide="prev">‹</a>
                                         <a class="carousel-control right" href="#image-additional" data-slide="next">›</a>
                                     </div>

@@ -11,15 +11,47 @@
                     <fieldset>
                         <div class="row">
                             <div class="col-lg-6 col-sm-4 image-container">
-                                <div class="image" style="width: 469px; height: 310px;">
+
+                                <div class="thumbnail" style="width: auto; height: 320px; border: dashed">
                                     <a ng-href="{{thumbnail}}" class="colorbox cboxElement">
-                                        <img data-ng-src="{{thumbnail}}" data-ng-if="thumbnail" id="image" data-zoom-image="{{thumbnail}}" class="product-image-zoom">
+                                        <img data-ng-src="{{thumbnail}}" id="image" style="height: 100%" data-zoom-image="{{product.thumbnail}}" class="product-image-zoom">
                                     </a>
                                 </div>
-                                <div>
-                                <input type="file" ng-file-select="" ng-model="thumbnailFile" name="thumbnail" accept="image/*">
-                                    <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+
+                                 <div class="image-additional slide carousel" id="image-additional">
+                                    <div id="image-additional-carousel" class="carousel-inner">
+                                        <div nclass="item active" ng-repeat="picture in product.pictures">
+                                            <a ng-href="{{picture}}"  class="" data-zoom-image="{{picture}}" data-image="{{picture}}">
+                                                <img ng-src="{{picture}}" style="max-width:114px" data-zoom-image="{{picture}}" class="product-image-zoom">
+                                            </a>
+                                        </div>
+
+                                        <a class="carousel-control left" href="#image-additional" data-slide="prev">‹</a>
+                                        <a class="carousel-control right" href="#image-additional" data-slide="next">›</a>
                                     </div>
+                                </div>
+
+                                <div class="image-additional slide carousel" id="image-additional" style="width: auto; height: 80px;  border: dashed">
+                                    <div id="image-additional-carousel" class="carousel-inner">
+                                        <div nclass="item active" >
+                                            <a ng-repeat="picture in pictures" ng-href="{{picture}}"  class="" data-zoom-image="{{picture}}" data-image="{{picture}}">
+                                                <img ng-src="{{picture}}" style="max-width:114px; max-height: 72px;" data-zoom-image="{{picture}}" class="product-image-zoom">
+                                            </a>
+                                        </div>
+                                        <a class="carousel-control left" href="#image-additional" data-slide="prev">‹</a>
+                                        <a class="carousel-control right" href="#image-additional" data-slide="next">›</a>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top:6px">
+                                    <button ng-click="uploadThumbnail()">上传主图 </button>
+                                    <input type="file" ng-file-select ng-model="thumbnailFile" id="thumbnail" name="thumbnail" accept="image/*" style="display: none !important;">
+
+                                    <button ng-click="uploadPictures()">上传其他图片 </button>
+                                    <input type="file" ng-file-select ng-model="picFiles" id="pictures" name="pictures" accept="image/*" ng-multiple="true" style="display: none !important;">
+                                                                        
+                                    <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+                                </div>
                             </div>
 
                             <div class="col-lg-6 col-sm-8">
@@ -70,14 +102,6 @@
                         </div>
 
                         <div class="row">
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="pictures">更多图片</label>
-                                <div class="col-sm-10">
-                                    <input type="text" data-ng-model="pictures" id="pictures" class="form-control" placeholder="更多图片" required>
-                                </div>
-                            </div>
-
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="categories">类别</label>
                                 <div class="col-sm-10">

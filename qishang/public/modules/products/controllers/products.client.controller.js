@@ -4,6 +4,7 @@
 angular.module('products').controller('ProductsController', ['$scope', '$stateParams', '$location', '$upload', 'Authentication', 'Products', 
 	function($scope, $stateParams, $location, $upload, Authentication, Products) {
 		$scope.authentication = Authentication;
+		$scope.pictures = [];
 
 		// Create new Product
 		$scope.create = function() {
@@ -14,6 +15,7 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 				description: this.description,
 				longDescription: this.longDescription,
 				thumbnail: this.thumbnail,
+				pictures: this.pictures,
 				price: this.price,
 				originPrice: this.originPrice,
 
@@ -78,13 +80,18 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 		};
 
 		$scope.$watch('thumbnailFile', function () {
-        	$scope.uploadThumbnail($scope.thumbnailFile);
+        	$scope.uploadImage($scope.thumbnailFile);
     	});
+
+    	 $scope.$watch('picFiles', function () {
+        	$scope.uploadImages($scope.picFiles);
+    	});
+
 
     	$scope.uploadInProgress = false;
         $scope.uploadProgress = '0%';
-
-    	$scope.uploadThumbnail = function (files) {
+       
+    	$scope.uploadImage = function (files) {
 	        if (files && files.length) {
 	            var file = files[0];
 	            $upload.upload({
@@ -105,6 +112,43 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 	            	console.warn('Error uploading file: ' + err.message || err);
 	        	});
 			}
+		};
+
+		$scope.uploadImages = function (files) {
+	        if (files && files.length) {
+	        	for (var i = 0; i < files.length; i++) {
+		            var file = files[i];
+		            $upload.upload({
+		                url: '/products/upload/image',
+		                fields: { 'username': $scope.username},
+		                file: file
+		            }).progress(function (evt) {
+		            	$scope.uploadPicsInProgress = true;
+		            	var progressPercentage =  i / files +  parseInt(100.0 * evt.loaded / evt.total / files.length);
+		                $scope.uploadPicsProgress = progressPercentage + '% ';
+		            }).success(function (data, status, headers, config) {
+		            	if (i === (files.length - 1)) {
+		            		$scope.uploadPicsInProgress = false;
+		            	}
+
+		                console.log('File ' + config.file.name + 'uploaded. Response: ' + JSON.stringify(data));
+		                console.log(data.url);	
+
+		                $scope.pictures.push(data.url);
+		            }).error(function(err) {
+		            	$scope.uploadPicsInProgress = false;
+		            	console.warn('Error uploading file: ' + err.message || err);
+		        	});
+		        }
+	        }
+		};
+
+		$scope.uploadThumbnail = function() {
+			document.getElementById('thumbnail').click();
+		};
+
+		$scope.uploadPictures = function() {
+			document.getElementById('pictures').click();
 		};
 	}
 ]);
