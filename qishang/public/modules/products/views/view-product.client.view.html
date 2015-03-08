@@ -11,7 +11,7 @@
                             <div class="col-lg-7 col-sm-6 image-container">
                                 <div class="image">
                                     <a ng-href="{{product.thumbnail}}" class="colorbox cboxElement">
-                                        <img data-ng-src="{{product.thumbnail}}" title="{{product.name}}" alt="{{product.name}}" id="image" data-zoom-image="{{product.thumbnail}}" class="product-image-zoom">
+                                        <img data-ng-src="{{product.thumbnail}}" title="{{product.title}}" alt="{{product.title}}" id="image" data-zoom-image="{{product.thumbnail}}" class="product-image-zoom">
                                     </a>
                                 </div>
 
@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-5 col-sm-6">
-                                <h1>{{product.name}}</h1>
+                                <h1>{{product.title}}</h1>
 
                                 <div class="description">
                                     <span>描述:</span>{{prodcut.description}}
@@ -39,7 +39,6 @@
                                 <div class="price-cart">
                                     <div class="price"> {{product.price | currency:"￥ "}}</div>
                                     <div class="product-extra">
-
                                         <input type="hidden" name="product_id" value="43"> &nbsp;
                                         <!-- <input type="button" value="Add to Cart" id="button-cart" class="button" />-->
                                         <button class="button" id="button-cart">
@@ -63,12 +62,12 @@
 
                  <div class="comment" ng-repeat="comment in product.comments">
                     <p>
-                      <a href="{{ '/users/' + comment.user._id }}">{{ comment.user.displayName }}</a>
-                      :&nbsp;
-                      {{ comment.body }} &nbsp;
-                      {{ comment.star }} &nbsp;
+                        <a href="{{ '/users/' + comment.user._id }}">{{ comment.user.displayName }}</a>
+                        :
+                        {{ comment.star }}
+                        {{ comment.body }}
+                        <span class="muted">{{ comment.createdAt | date:'dd-M-yyyy H:mm'}}</span>
                        <button class="btn btn-danger btn-link error" ng-click="deleteComment(comment._id )">delete</button>
-                      <span class="muted">{{ comment.createdAt | date:'dd-M-yyyy H:mm'}}</span>
                     </p> 
                 </div>
 

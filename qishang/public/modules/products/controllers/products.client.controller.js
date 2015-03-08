@@ -11,19 +11,21 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 			// Create new Product object
 			var product = new Products ({
 				sku: this.sku,
-				name: this.name,
+				title: this.title,
 				description: this.description,
 				longDescription: this.longDescription,
 				thumbnail: this.thumbnail,
-				pictures: this.pictures,
 				price: this.price,
-				originPrice: this.originPrice,
+				priceInMarket: this.priceInMarket,
 
 				categories: this.categories,
-				style: this.style,
 				material: this.material,
-				jadeKind: this.jadeKind,
-				size: this.size
+				style: this.style,
+				keywords: this.keywords,
+				usages: this.usages,
+				scenarios: this.scenarios
+
+
 
 				// TODO: other properties
 			});
@@ -33,7 +35,6 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 				$location.path('products/' + response._id);
 
 				// Clear form fields
-				$scope.name = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -168,10 +169,12 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
     				star: $scope.newComment.star,
     				body: $scope.newComment.body
     			}
-    		}).success(function (data, status, headers, config) {
+    		})
+    		.success(function (data, status, headers, config) {
     			$scope.newComment = {};
     			$location.path('products/' + $scope.product._id);
-        	}).error(function (message, status, headers, config) {
+        	})
+        	.error(function (message, status, headers, config) {
         		$scope.error = message;
 			});
 		};
@@ -191,9 +194,11 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
     				_csrf: $scope.csrf_token,
     				_method: 'DELETE'
     			}
-    		}).success(function (message, status, headers, config) {
+    		})
+    		.success(function (message, status, headers, config) {
     			$location.path('products/' + $scope.product._id);
-        	}).error(function (data, status, headers, config) {
+        	})
+        	.error(function (data, status, headers, config) {
         		$scope.error = message;
 			});
 		};

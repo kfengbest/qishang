@@ -4,96 +4,276 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  utils = require('../utils');
+    Schema = mongoose.Schema,
+    utils = require('../utils');
 
 /**
  * Getters / Setters for categories
  */
-var getCategories= function (categories) {
-  return categories.join(',');
+var getCategories = function(categories) {
+    return categories.join(',');
 };
-var setCategories = function (categories) {
-  return categories.split(',');
-};	
+var setCategories = function(categories) {
+    return categories.split(',');
+};
 
 /**
- * Getters / Setters for tags
+ * Getters / Setters for keywords
  */
-var getTags = function (tags) {
-  return tags.join(',');
+var getKeywords = function(keywords) {
+    return keywords.join(',');
 };
-var setTags = function (tags) {
-  return tags.split(',');
+var setKeywords = function(keywords) {
+    return keywords.split(',');
 };
 
 /**
  * Getters / Setters for usages
  */
-var getUsages = function (usages) {
-  return usages.join(',');
+var getUsages = function(usages) {
+    return usages.join(',');
 };
-var setUsages = function (usages) {
-  return usages.split(',');
+var setUsages = function(usages) {
+    return usages.split(',');
+};
+
+/**
+ * Getters / Setters for scenarios
+ */
+var getScenarios = function(scenarios) {
+    return scenarios.join(',');
+};
+var setScenarios = function(scenarios) {
+    return scenarios.split(',');
 };
 
 /**
  * Getters / Setters for promises
  */
-var getPromises = function (promises) {
-  return promises.join(',');
+var getPromises = function(promises) {
+    return promises.join(',');
 };
-var setPromises = function (promises) {
-  return promises.split(',');
+var setPromises = function(promises) {
+    return promises.split(',');
 };
 
 /**
  * Product Schema
  */
 var ProductSchema = new Schema({
-	sku: { type: String, default: '', unique: true, trim: true },
-	name: { type: String, default: '', trim: true },
-	description: { type: String, default: '', trim: true },
-	longDescription: { type: String, default: '', trim: true },
-	thumbnail: { type: String, default: '', trim: true},
-	pictures: [{ type: String }],
-	price: { type: Number, default: '9999999' },
-	originPrice: { type: Number, default: '0' },
+    sku: {
+        type: String,
+        default: '',
+        unique: true,
+        trim: true
+    },
+    title: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    description: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    longDescription: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    price: {
+        type: Number,
+        default: 9999999
+    },
+    priceInMarket: {
+        type: Number,
+        default: 9999999
+    },
+    discount: {
+        type: Number,
+        default: 10
+    },
+    discountStartDate: {
+        type: Date,
+        default: Date.now
+    },
+    discountEndDate: {
+        type: Date
+    },
+    thumbnail: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    // 产地
+    origin: {
+        type: String,
+        default: ''
+    },
+    // 已售标识
+    state: {
+        type: String,
+        default: 'onSale'
+    },
 
-	categories: { type: [],  get: getCategories, set: setCategories }, // 有机/宝石/翡翠/玉石/水晶/玉髓/玛瑙/彩色宝石
-	style: { type: String, default: '', trim: true }, // 款式： 项链/吊坠/耳饰/发饰/手链/手镯/戒指/胸针/摆件/把件/其他
-	material: { type: String, default: '', trim: true }, // 材质： 石榴石/密蜡
-	jadeKind: { type: String, default: '', trim: true }, // 翡翠种地： 不限/冰种/冰糯种/糯种/玻璃种
-	size: { type: String, default: '', trim: true },
+    // 种类： 彩色宝石/文玩...
+    categories: {
+        type: [],
+        get: getCategories,
+        set: setCategories
+    },
+    // 材质： 青金/绿松/蓝松/蜜蜡/紫檀/南红石榴石...
+    material: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    // 宝石样式: 圆珠/桶珠/鼓珠/无...
+    gemType: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    // 宝石单颗尺寸: 直径: 1cm，高度: 2cm，厚度: 3cm
+    gemSize: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    // 宝石颜色
+    gemColor: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    // 款式： 项链/吊坠/耳饰/发饰/手链/手镯/戒指/胸针/摆件/把件/裸石/其他
+    style: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    // 成品规格
+    size: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    // 成品总重量
+    weight: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    // 镶嵌材料
+    insetMaterial: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    
+    // 商品关键字
+    keywords: {
+        type: [],
+        get: getKeywords,
+        set: setKeywords
+    }, 
+    // 特色关键字： 招财/辟邪/白羊座
+    usages: {
+        type: [],
+        get: getUsages,
+        set: setUsages
+    },
+    // 场景关键字: 职场，逛街
+    scenarios: {
+        type: [],
+        get: getScenarios,
+        set: setScenarios
+    },
 
-	tags: { type: [], get: getTags, set: setTags }, // Tag: 热门/最新上架/精品推荐
-	usages: { type: [], get: getUsages, set: setUsages }, // 用途： 招财/辟邪
-	detail: { type: {} },
-	content: { type: String },
-	comments: [{
-    	star: { type: Number, default: 5},
-    	body: { type : String, default : '' },
-    	user: { type : Schema.ObjectId, ref : 'User' },
-    	createdAt: { type : Date, default : Date.now },
-    	state: {type: String, default: 'reviewing', trim: true}
-  	}],
-  	// 收藏用户链表
-	favorite: [ { user: { type : Schema.ObjectId, ref : 'User' } }],
-	// 点赞数
-  favNumber: { type: Number },
+    detail: {
+        type: {}
+    },
+    content: {
+        type: String
+    },
 
-  certificateID: { type: String, default: '', trim: true },
-  certificateImage: { uri: String, files: [] },
-  suitTypes: { type: {} },
-  state: { type: String, efault: 'onSale' },
-  promises: { type: [],  get: getPromises, set: setPromises },
-  packageInfo: { type: {} },
-	created: { type: Date, default: Date.now }
+    comments: [{
+        star: {
+            type: Number,
+            default: 5
+        },
+        body: {
+            type: String,
+            default: ''
+        },
+        user: {
+            type: Schema.ObjectId,
+            ref: 'User'
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now
+        },
+        state: {
+            type: String,
+            default: 'reviewing',
+            trim: true
+        }
+    }],
+    // 点赞
+    stars: [{
+        user: {
+            type: Schema.ObjectId,
+            ref: 'User'
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
+    }],
+
+    // 收藏用户链表
+    favorite: [{
+        user: {
+            type: Schema.ObjectId,
+            ref: 'User'
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
+    }],
+    
+    certificateID: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    certificateImage: {
+        uri: String,
+        files: []
+    },
+    suitTypes: {
+        type: {}
+    },
+    promises: {
+        type: [],
+        get: getPromises,
+        set: setPromises
+    },
+    packageInfo: {
+        type: {}
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 // Todo:
 ProductSchema.path('sku').required(true, 'Product sku cannot be blank');
-ProductSchema.path('name').required(true, 'Product name cannot be blank');
+ProductSchema.path('title').required(true, 'Product title cannot be blank');
 ProductSchema.path('description').required(true, 'Product description cannot be blank');
 ProductSchema.path('price').required(true, 'Product price cannot be blank');
 
@@ -102,25 +282,30 @@ ProductSchema.path('price').required(true, 'Product price cannot be blank');
  * Methods
  */
 ProductSchema.methods = {
-  addComment: function (user, comment, cb) {
-    // Todo: notify producter
-    //var notify = require('../mailer');
+    addComment: function(user, comment, cb) {
+        // Todo: notify producter
+        //var notify = require('../mailer');
 
-    this.comments.push({
-      star: comment.star,
-      body: comment.body,
-      user: user._id
-    });
+        this.comments.push({
+            star: comment.star,
+            body: comment.body,
+            user: user._id
+        });
 
-    this.save(cb);
-  },
+        this.save(cb);
+    },
 
-  removeComment: function (commentId, cb) {
-    var index = utils.indexof(this.comments, { id: commentId });
-    if (~index) this.comments.splice(index, 1);
-    else return cb('id not found');
-    this.save(cb);
-  }
+    removeComment: function(commentId, cb) {
+        var index = utils.indexof(this.comments, {
+            id: commentId
+        });
+        if (~index) this.comments.splice(index, 1);
+        else return cb('id not found');
+
+        this.save(cb);
+    }
+
+
 };
 
 mongoose.model('Product', ProductSchema);

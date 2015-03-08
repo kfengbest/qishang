@@ -2,19 +2,26 @@
     <div class="page-header">
         <h1>Products</h1>
     </div>
-    <div class="list-group">
-        <a data-ng-repeat="product in products" data-ng-href="#!/products/{{product._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="product.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="product.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="product.name"></h4>
-            <h6 class="list-group-item-heading" data-ng-bind="product.thumbnail"></h6>
-        </a>
+
+    <div class="container list-group">
+        <div class="list-group-item row" data-ng-repeat="product in products">
+            <div class="col-md-2">
+                <a data-ng-href="#!/products/{{product._id}}">
+                    <img data-ng-href="#!/products/{{product._id}}"  data-ng-src="{{product.thumbnail}}" title="{{product.name}}" />
+                </a>
+            </div>
+            <div class="col-md-10">
+                <h3><a data-ng-href="#!/products/{{product._id}}" class="hand">{{product.title}}</a> &nbsp;
+                </h3>
+                <p>{{product.description}}</p>
+                <span>种类: {{product.categories}}</span>
+                <span>关键字: {{product.keywords}}</span>
+                <span>场景: {{product.scenarios}}</span>
+            </div>
+            <hr/>
+        </div>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!products.$resolved || products.length">
-    	No Products yet, why don't you <a href="/#!/products/create">create one</a>?
+        No Products yet, why don't you <a href="/#!/products/create">create one</a>?
     </div>
 </section>
