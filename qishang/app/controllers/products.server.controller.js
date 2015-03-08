@@ -102,7 +102,7 @@ exports.list = function(req, res) {
  * Product middleware
  */
 exports.productByID = function(req, res, next, id) {
-    Product.findById(id).exec(function(err, product) {
+    Product.findById(id).populate('comments.user').exec(function(err, product) {
         if (err) return next(err);
         if (!product) return next(new Error('Failed to load Product ' + id));
         req.product = product;

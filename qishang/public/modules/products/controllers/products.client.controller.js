@@ -1,8 +1,8 @@
 'use strict';
 
 // Products controller
-angular.module('products').controller('ProductsController', ['$scope', '$stateParams', '$location', '$upload', 'Authentication', 'Products', 
-	function($scope, $stateParams, $location, $upload, Authentication, Products) {
+angular.module('products').controller('ProductsController', ['$scope', '$stateParams', '$http', '$location', '$upload', 'Authentication', 'Products', 
+	function($scope, $stateParams, $http, $location, $upload, Authentication, Products) {
 		$scope.authentication = Authentication;
 		$scope.pictures = [];
 
@@ -149,6 +149,53 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 
 		$scope.uploadPictures = function() {
 			document.getElementById('pictures').click();
+		};
+
+		$scope.newComment = {};
+		$scope.createComment = function() {
+			$http({
+    			url: '/products/' + $scope.product._id + '/comments',
+    			method: "POST",
+    			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    			transformRequest: function(obj) {
+        			var str = [];
+        			for(var p in obj)
+        			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        			return str.join("&");
+    			},
+    			data: {
+    				_csrf: $scope.csrf_token,
+    				star: $scope.newComment.star,
+    				body: $scope.newComment.body
+    			}
+    		}).success(function (data, status, headers, config) {
+    			$scope.newComment = {};
+    			$location.path('products/' + $scope.product._id);
+        	}).error(function (message, status, headers, config) {
+        		$scope.error = message;
+			});
+		};
+
+		$scope.deleteComment = function(id){
+			$http({
+    			url: '/products/' + $scope.product._id + '/comments/' + id,
+    			method: "POST",
+    			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    			transformRequest: function(obj) {
+        			var str = [];
+        			for(var p in obj)
+        			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        			return str.join("&");
+    			},
+    			data: {
+    				_csrf: $scope.csrf_token,
+    				_method: 'DELETE'
+    			}
+    		}).success(function (message, status, headers, config) {
+    			$location.path('products/' + $scope.product._id);
+        	}).error(function (data, status, headers, config) {
+        		$scope.error = message;
+			});
 		};
 	}
 ]);

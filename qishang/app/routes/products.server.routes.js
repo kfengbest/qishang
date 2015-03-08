@@ -3,6 +3,7 @@
 module.exports = function(app) {
 	var users = require('../../app/controllers/users.server.controller');
 	var products = require('../../app/controllers/products.server.controller');
+	var comments = require('../../app/controllers/product.comments.server.controller');
 
 	// Products Routes
 	app.route('/products')
@@ -23,4 +24,14 @@ module.exports = function(app) {
 
 	// Finish by binding the Product middleware
 	app.param('productId', products.productByID);
+
+	// Comments routes
+  	app.param('commentId', comments.commentByID);
+  	app.route('/products/:productId/comments')
+		.post(comments.create);
+
+	app.route('/products/:productId/comments/:commentId')
+		.delete(comments.delete);
+
+	app.param('commentId', comments.commentByID);
 };

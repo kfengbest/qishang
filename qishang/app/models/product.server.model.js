@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+  Schema = mongoose.Schema,
+  utils = require('../utils');
 
 /**
  * Getters / Setters for categories
@@ -113,6 +114,13 @@ ProductSchema.methods = {
 
     this.save(cb);
   },
+
+  removeComment: function (commentId, cb) {
+    var index = utils.indexof(this.comments, { id: commentId });
+    if (~index) this.comments.splice(index, 1);
+    else return cb('id not found');
+    this.save(cb);
+  }
 };
 
 mongoose.model('Product', ProductSchema);

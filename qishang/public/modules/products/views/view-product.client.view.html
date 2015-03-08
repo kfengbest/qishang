@@ -60,13 +60,34 @@
                         </div>
                     </div>
                 </div>
+
+                 <div class="comment" ng-repeat="comment in product.comments">
+                    <p>
+                      <a href="{{ '/users/' + comment.user._id }}">{{ comment.user.displayName }}</a>
+                      :&nbsp;
+                      {{ comment.body }} &nbsp;
+                      {{ comment.star }} &nbsp;
+                       <button class="btn btn-danger btn-link error" ng-click="deleteComment(comment._id )">delete</button>
+                      <span class="muted">{{ comment.createdAt | date:'dd-M-yyyy H:mm'}}</span>
+                    </p> 
+                </div>
+
+                <div>
+                    <form method="post" ng-submit="createComment()" role="form">
+                        <input type="hidden" name="_csrf" ng-model="newComment._csrf" value="{{ csrf_token }}">
+                        <div class="form-group">
+                            <input type="text" name="star" id="star" ng-model="newComment.star" class="form-control" placeholder="5" >
+                            <textarea rows="6" name="body" id="body" ng-model="newComment.body"placeholder="Add your comment"  cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                      <button class="btn btn-primary" type="submit">Add comment</button>
+                    </form>
+                </div>
                 <div>
                     <small>
-						<em class="text-muted">
-			Posted on
-			<span data-ng-bind="product.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="product.user.displayName"></span>
+						<em class="text-muted">Posted on
+                			<span data-ng-bind="product.created | date:'mediumDate'"></span>
+                			by
+                			<span data-ng-bind="product.user.displayName"></span>
 						</em>
 					</small>
                 </div>
