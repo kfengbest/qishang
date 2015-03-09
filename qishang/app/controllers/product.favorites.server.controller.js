@@ -9,11 +9,11 @@ var mongoose = require('mongoose'),
     _ = require('lodash'),
     utils = require('../utils');
 
-exports.commentByID = function(req, res, next, id) {
+exports.favoriteByID = function(req, res, next, id) {
     var product = req.product;
-    utils.findByParam(product.comments, { id: id }, function (err, comment) {
+    utils.findByParam(product.favorites, { id: id }, function (err, favorite) {
         if (err) return next(err);
-        req.comment = comment;
+        req.favorite = favorite;
         next();
     });
 };
@@ -24,7 +24,7 @@ exports.create = function(req, res) {
     console.log(req.body);
     if (!req.body.body) return res.redirect('/products/'+ product.id);
 
-    product.addComment(user, req.body, function (err) {
+    product.addFavorite(user, req.body, function (err) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -38,7 +38,7 @@ exports.create = function(req, res) {
 exports.delete = function (req, res) {
     var product = req.product;
 
-    product.removeComment(req.param('commentId'), function (err) {
+    product.removeFavorite(req.param('favoriteId'), function (err) {
       if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -51,5 +51,5 @@ exports.delete = function (req, res) {
 
 exports.list = function(req, res) {
     var product = req.product;
-    res.jsonp(product.comments);
+    res.jsonp(product.favorites);
 };

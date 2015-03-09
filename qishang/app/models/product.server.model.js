@@ -232,9 +232,8 @@ var ProductSchema = new Schema({
             default: Date.now
         }
     }],
-
     // 收藏用户链表
-    favorite: [{
+    favorites: [{
         user: {
             type: Schema.ObjectId,
             ref: 'User'
@@ -285,7 +284,6 @@ ProductSchema.methods = {
     addComment: function(user, comment, cb) {
         // Todo: notify producter
         //var notify = require('../mailer');
-
         this.comments.push({
             star: comment.star,
             body: comment.body,
@@ -294,18 +292,28 @@ ProductSchema.methods = {
 
         this.save(cb);
     },
-
     removeComment: function(commentId, cb) {
-        var index = utils.indexof(this.comments, {
-            id: commentId
-        });
+        var index = utils.indexof(this.comments, { id: commentId });
         if (~index) this.comments.splice(index, 1);
         else return cb('id not found');
 
         this.save(cb);
+    },
+
+    addFavorite: function(user, cb) {
+        this.favorites.push({
+            user: user._id
+        });
+
+        this.save(cb);
+    },
+    removeFavorite: function(favoriteId, cb) {
+        var index = utils.indexof(this.favorites, { id: favoriteId});
+        if (~index) this.favorites.splice(index, 1);
+        else return cb('id not found');
+
+        this.save(cb);
     }
-
-
 };
 
 mongoose.model('Product', ProductSchema);
