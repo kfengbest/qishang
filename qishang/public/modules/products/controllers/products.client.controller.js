@@ -156,50 +156,46 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 		$scope.createComment = function() {
 			$http({
     			url: '/products/' + $scope.product._id + '/comments',
-    			method: "POST",
+    			method: 'POST',
     			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     			transformRequest: function(obj) {
         			var str = [];
         			for(var p in obj)
-        			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        			return str.join("&");
+        			str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+        			return str.join('&');
     			},
     			data: {
     				_csrf: $scope.csrf_token,
     				star: $scope.newComment.star,
     				body: $scope.newComment.body
     			}
-    		})
-    		.success(function (data, status, headers, config) {
+    		}).success(function (data, status, headers, config) {
     			$scope.newComment = {};
     			$location.path('products/' + $scope.product._id);
-        	})
-        	.error(function (message, status, headers, config) {
-        		$scope.error = message;
+        	}).error(function (data, status, headers, config) {
+        		$scope.error = data;
 			});
 		};
 
 		$scope.deleteComment = function(id){
 			$http({
     			url: '/products/' + $scope.product._id + '/comments/' + id,
-    			method: "POST",
+    			method: 'POST',
     			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     			transformRequest: function(obj) {
         			var str = [];
         			for(var p in obj)
-        			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        			return str.join("&");
+        			str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+        			return str.join('&');
     			},
     			data: {
     				_csrf: $scope.csrf_token,
     				_method: 'DELETE'
     			}
-    		})
-    		.success(function (message, status, headers, config) {
+    		}).success(function (data, status, headers, config) {
     			$location.path('products/' + $scope.product._id);
-        	})
-        	.error(function (data, status, headers, config) {
-        		$scope.error = message;
+        	}).error(function (data, status, headers, config) {
+        		$scope.error = data;
 			});
 		};
 	}

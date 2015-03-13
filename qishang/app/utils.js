@@ -9,17 +9,17 @@
  */
 
 exports.errors = function (errors) {
-  var keys = Object.keys(errors)
-  var errs = []
+  var keys = Object.keys(errors);
+  var errs = [];
 
   // if there is no validation error, just display a generic error
   if (!keys) {
-    return ['Oops! There was an error']
+    return ['Oops! There was an error'];
   }
 
   keys.forEach(function (key) {
-    if (errors[key]) errs.push(errors[key].message)
-  })
+    if (errors[key]) errs.push(errors[key].message);
+  });
 
   return errs;
 };
@@ -52,7 +52,7 @@ exports.indexof = function (arr, obj) {
           return idx;
         }
       }
-    };
+    }
   });
   return index;
 };
@@ -68,13 +68,13 @@ exports.indexof = function (arr, obj) {
  */
 
 exports.findByParam = function (arr, obj, cb) {
-  var index = exports.indexof(arr, obj)
+  var index = exports.indexof(arr, obj);
   if (~index && typeof cb === 'function') {
-    return cb(undefined, arr[index])
+    return cb(undefined, arr[index]);
   } else if (~index && !cb) {
-    return arr[index]
+    return arr[index];
   } else if (!~index && typeof cb === 'function') {
-    return cb('not found')
+    return cb('not found');
   }
   // else undefined is returned
 };
