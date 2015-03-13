@@ -5,6 +5,7 @@ module.exports = function(app) {
 	var products = require('../../app/controllers/products.server.controller');
 	var comments = require('../../app/controllers/product.comments.server.controller');
 	var favorites = require('../../app/controllers/product.favorites.server.controller');
+	var votes = require('../../app/controllers/product.votes.server.controller');
 
 	// Products Routes
 	app.route('/products')
@@ -39,8 +40,17 @@ module.exports = function(app) {
 	app.route('/products/:productId/favorites/:favoriteId')
 		.delete(favorites.delete);
 
+	// Votes routes
+  	app.route('/products/:productId/votes')
+  		.get(votes.list)
+		.post(votes.create);
+
+	app.route('/products/:productId/votes/:voteId')
+		.delete(votes.delete);
+
 	// Finish by binding middleware
 	app.param('productId', products.productByID);
 	app.param('commentId', comments.commentByID);
 	app.param('favoriteId', favorites.favoriteByID);
+	app.param('voteId', votes.voteByID);
 };

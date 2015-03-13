@@ -9,11 +9,11 @@ var mongoose = require('mongoose'),
     _ = require('lodash'),
     utils = require('../utils');
 
-exports.favoriteByID = function(req, res, next, id) {
+exports.voteByID = function(req, res, next, id) {
     var product = req.product;
-    utils.findByParam(product.favorites, { id: id }, function (err, favorite) {
+    utils.findByParam(product.votes, { id: id }, function (err, vote) {
         if (err) return next(err);
-        req.favorite = favorite;
+        req.vote = vote;
         next();
     });
 };
@@ -23,7 +23,7 @@ exports.create = function(req, res) {
     var user = req.user;
     console.log(req.body);
 
-    product.addFavorite(user, function (err) {
+    product.addVote(user, function (err) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -37,7 +37,7 @@ exports.create = function(req, res) {
 exports.delete = function (req, res) {
     var product = req.product;
 
-    product.removeFavorite(req.param('favoriteId'), function (err) {
+    product.removeVote(req.param('voteId'), function (err) {
       if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -50,5 +50,5 @@ exports.delete = function (req, res) {
 
 exports.list = function(req, res) {
     var product = req.product;
-    res.jsonp(product.favorites);
+    res.jsonp(product.votes);
 };

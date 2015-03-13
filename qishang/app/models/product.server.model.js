@@ -198,6 +198,7 @@ var ProductSchema = new Schema({
         type: String
     },
 
+    // 评论
     comments: [{
         star: {
             type: Number,
@@ -222,7 +223,7 @@ var ProductSchema = new Schema({
         }
     }],
     // 点赞
-    stars: [{
+    votes: [{
         user: {
             type: Schema.ObjectId,
             ref: 'User'
@@ -310,6 +311,21 @@ ProductSchema.methods = {
     removeFavorite: function(favoriteId, cb) {
         var index = utils.indexof(this.favorites, { id: favoriteId});
         if (~index) this.favorites.splice(index, 1);
+        else return cb('id not found');
+
+        this.save(cb);
+    },
+
+    addVote: function(user, cb) {
+        this.votes.push({
+            user: user._id
+        });
+
+        this.save(cb);
+    },
+    removeVote: function(voteId, cb) {
+        var index = utils.indexof(this.votes, { id: voteId});
+        if (~index) this.votes.splice(index, 1);
         else return cb('id not found');
 
         this.save(cb);
