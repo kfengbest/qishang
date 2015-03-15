@@ -87,7 +87,33 @@ exports.delete = function(req, res) {
  * List of Products
  */
 exports.list = function(req, res) {
-    Product.find().sort('-created').exec(function(err, products) {
+    var criteria = {};
+
+    // Set categories criteria if any
+    if (req.param('categories')){
+        var categories = req.param('categories').split(',');
+        criteria.categories = {$in: categories};
+    }
+
+    // Set scenarios criteria if any
+    if (req.param('scenarios')){
+        var scenarios = req.param('scenarios').split(',');
+        criteria.scenarios = {$in: scenarios};
+    }
+
+    // Set keywords criteria if any
+    if (req.param('keywords')){
+        var keywords = req.param('keywords').split(',');
+        criteria.keywords = {$in: keywords};
+    }
+
+    // Set usages criteria if any
+    if (req.param('usages')){
+        var usages = req.param('usages').split(',');
+        criteria.usages = {$in: usages};
+    }
+
+    Product.find(criteria).sort('-created').exec(function(err, products) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
