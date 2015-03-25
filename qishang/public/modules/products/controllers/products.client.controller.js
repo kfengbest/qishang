@@ -1,8 +1,8 @@
 'use strict';
 
 // Products controller
-angular.module('products').controller('ProductsController', ['$scope', '$stateParams', '$http', '$location', '$upload', 'Authentication', 'Products', 
-	function($scope, $stateParams, $http, $location, $upload, Authentication, Products) {
+angular.module('products').controller('ProductsController', ['$scope', '$stateParams', '$http', '$location', '$upload', 'Authentication', 'Products', 'Cart',
+	function($scope, $stateParams, $http, $location, $upload, Authentication, Products, Cart) {
 		$scope.authentication = Authentication;
 		$scope.pictures = [];
 
@@ -197,6 +197,12 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
         	}).error(function (data, status, headers, config) {
         		$scope.error = data;
 			});
+		};
+
+		$scope.addToCart = function() {
+			var product = $scope.product;
+			Cart.addItem(product.sku, product.title, product.price, 1);
+			console.log(Cart.items);
 		};
 	}
 ]);

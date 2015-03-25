@@ -89,27 +89,27 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
     var criteria = {};
 
-    // Set categories criteria if any
-    if (req.param('categories')){
-        var categories = req.param('categories').split(',');
+    // Set category criteria if any
+    if (req.param('category')){
+        var categories = req.param('category').split(',');
         criteria.categories = {$in: categories};
     }
 
-    // Set scenarios criteria if any
-    if (req.param('scenarios')){
-        var scenarios = req.param('scenarios').split(',');
+    // Set scenario criteria if any
+    if (req.param('scenario')){
+        var scenarios = req.param('scenario').split(',');
         criteria.scenarios = {$in: scenarios};
     }
 
-    // Set keywords criteria if any
-    if (req.param('keywords')){
-        var keywords = req.param('keywords').split(',');
+    // Set keyword criteria if any
+    if (req.param('keyword')){
+        var keywords = req.param('keyword').split(',');
         criteria.keywords = {$in: keywords};
     }
 
-    // Set usages criteria if any
-    if (req.param('usages')){
-        var usages = req.param('usages').split(',');
+    // Set usage criteria if any
+    if (req.param('usage')){
+        var usages = req.param('usage').split(',');
         criteria.usages = {$in: usages};
     }
 
