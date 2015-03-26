@@ -10,7 +10,7 @@
                     <img data-ng-href="#!/products/{{product._id}}"  data-ng-src="{{product.thumbnail}}" title="{{product.name}}" />
                 </a>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h3><a data-ng-href="#!/products/{{product._id}}" class="hand">{{product.title}}</a> &nbsp;
                 </h3>
                 <p>{{product.description}}</p>
@@ -18,6 +18,12 @@
                 <span>关键字: {{product.keywords}}</span>
                 <span>场景: {{product.scenarios}}</span>
                 <span>特色: {{product.usages}}</span>
+            </div>
+            <div class="col-md-2">
+                <button class="button" id="button-cart" ng-click="addToCart(product)">
+                    <span class="fa fa-shopping-cart icon"></span>
+                    <span>Add to Cart</span>
+                </button>
             </div>
             <hr/>
         </div>

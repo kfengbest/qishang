@@ -12,6 +12,10 @@ var init = require('./config/init')(),
  * Please note that the order of loading is important.
  */
 
+if (process.env.NODE_ENV === 'development') {
+ 	mongoose.set('debug', true)
+}
+
 // Bootstrap db connection
 var db = mongoose.connect(config.db, function(err) {
 	if (err) {

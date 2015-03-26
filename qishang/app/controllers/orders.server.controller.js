@@ -14,9 +14,12 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var order = new Order(req.body);
 	order.customer = req.user;
-
+	order.status = 0;
+	
 	order.save(function(err) {
 		if (err) {
+			console.log('Failed to submit order: ')
+			console.log(err);
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
