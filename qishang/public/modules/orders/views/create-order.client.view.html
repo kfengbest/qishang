@@ -1,11 +1,88 @@
 <section data-ng-controller="OrdersController">
-    <div class="page-header">
-        <h1>New Order</h1>
+
+    <!-- 收货地址 -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">收货地址</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" role="form" novalidate>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="receiverName">收货人：</label>
+                    <div class="col-sm-10">
+                        <input type="text" data-ng-model="deliveryInfo.receiverName" id="receiverName" class="form-control" placeholder="" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="address">详细地址：</label>
+                    <div class="col-sm-10">
+                        <input type="text" data-ng-model="deliveryInfo.address" id="address" class="form-control" placeholder="地址" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="phone">手机：</label>
+                    <div class="col-sm-2">
+                        <input type="text" data-ng-model="deliveryInfo.phone" id="phone" class="form-control" placeholder="138688688888">
+                    </div>
+                    <label class="col-sm-2  control-label" for="tel"> 或固定电话：</label>
+                    <input type="text" data-ng-model="deliveryInfo.tel" id="tel" cclass="col-sm-2 form-control" placeholder="021-56786666">
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="container-fluid list-group">
-        <div class="row-fluid list-group-item">
-            <div class="span8">
-                <table class="table table-bordered">
+
+    <!-- 支付方式 -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">支付方式</h3>
+        </div>
+        <div class="panel-body">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="payOptions" id="payOptions" value="zhifubao" data-ng-model="payment.type"> 支付宝
+                </label>
+            </div>
+            <div class="radio">
+               <label>
+                  <input type="radio" name="payOptions" id="payOptions" value="weixin" data-ng-model="payment.type"> 微信支付
+               </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- 发票信息 -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">发票信息</h3>
+        </div>
+        <div class="panel-body">
+            <div class="checkbox">
+                <label><input type="checkbox" value="1" data-toggle="button" checked>需要发票</label>
+            </div>
+            <div>
+                <label>发票抬头：</label>
+                <label class="checkbox-inline"> 
+                    <input type="radio" name="invoiceOptions" id="invoiceOption1" value="0" checked data-ng-model="invoiceInfo.type"> 个人 
+                    </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="invoiceOptions" id="invoiceOption2" value="1" data-ng-model="invoiceInfo.type"> 单位
+                </label>
+            </div>
+            <div>
+            <input type="text" data-ng-model="invoiceInfo.content"/>
+            </div>
+        </div>
+    </div>
+
+    <!-- 购物清单 -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">购物清单</h3>
+        </div>
+        <div class="panel-body">
+             <table class="table table-bordered">
                     <tr class="well">
                         <td><b>Item</b></td>
                         <td class="tdCenter"><b>Quantity</b></td>
@@ -29,7 +106,7 @@
                             <button class="btn btn-inverse" type="button" ng-disabled="item.quantity <= 1" ng-click="cart.addItem(item.sku, item.name, item.price, -1)">-</button> -->
                           </div>
                         </td>
-                        <td class="tdRight">{{item.price * item.quantity | currency}}</td>
+                        <td class="tdRight">{{item.price * item.quantity | currency:"￥ "}}</td>
                         <td class="tdCenter" title="remove from cart">
                             <a href="" ng-click="cart.addItem(item.sku, item.name, item.price, -10000000)" >
                                 <i class="icon-remove" />
@@ -41,10 +118,29 @@
                     <tr class="well">
                         <td><b>Total</b></td>
                         <td class="tdCenter"><b>{{cart.getTotalCount()}}</b></td>
-                        <td class="tdRight"><b>{{cart.getTotalPrice() | currency}}</b></td>
+                        <td class="tdRight"><b>{{cart.getTotalPrice() | currency:"￥ "}}</b></td>
                         <td />
                     </tr>
                 </table>
-                <button type="button" class="btn btn-primary pull-right" ng-click="checkout()">提交</button>
-            </div>
+        </div>
+    </div>
+
+     <!-- 留言 -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">留言</h3>
+        </div>
+        <div class="panel-body">
+            <Textarea class="form-control" rows="3" data-ng-model="comment" id="comment" placeholder="留言，特殊要求"> </Textarea>
+        </div>
+    </div>
+
+    <!-- 提交 -->
+    <div class="well clearfix">
+        <div class="pull-right">
+            <span style="margin-right: 20px;">应付总额：<strong>{{cart.getTotalPrice() | currency:"￥ "}}</strong></span>
+            <button type="button" class="btn btn-danger" ng-click="checkout()">提交订单</button>
+        </div>
+    </div>
+ 
 </section>

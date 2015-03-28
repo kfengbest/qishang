@@ -6,6 +6,8 @@ angular.module('orders').controller('OrdersController', ['$scope', '$stateParams
 		$scope.authentication = Authentication;
 
 		$scope.cart = ShoppingCart;
+		$scope.payment = {type: 'zhifubao'};
+		$scope.invoiceInfo = {type: 0};
 
 		// Create new Order
 		$scope.checkout = function() {
@@ -13,7 +15,11 @@ angular.module('orders').controller('OrdersController', ['$scope', '$stateParams
 			var order = new Orders ({
 				name: this.name,
 				orderItem: [],
-				totalPrice: $scope.cart.getTotalCount(),
+				totalPrice: $scope.cart.getTotalPrice(),
+				deliveryInfo: this.deliveryInfo,
+				invoiceInfo: this.invoiceInfo,
+				payment: this.payment,
+				comment: this.comment,
 				status:0,
 			});
 
@@ -21,14 +27,11 @@ angular.module('orders').controller('OrdersController', ['$scope', '$stateParams
 		   	order.orderItem.push({product: $scope.cart.items[i].sku, unitPrice: $scope.cart.items[i].price, quantity: $scope.cart.items[i].quantity});
 		   }
 
-		   // Todo: add delivery info 
-		   order.deliveryInfo = {receiverName: 'temp-receiverName', address: 'temp-address'};
-
 			// Redirect after save
 			order.$save(function(response) {
 				$scope.cart.clearItems();
 
-				$location.path('products/' + response._id);
+				$location.path('products');
 
 				// Clear form fields
 				$scope.name = '';

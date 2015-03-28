@@ -10,6 +10,9 @@ var mongoose = require('mongoose'),
  * Order Schema
  */
 var OrderSchema = new Schema({
+	orderID: {
+		type: Number
+	},
  	totalPrice: {
  		type: Number
  	},
@@ -18,8 +21,7 @@ var OrderSchema = new Schema({
 		default: Date.now
 	},
 	shipped: {
-		type: Date,
-		default: Date.now
+		type: Date
 	},
 	customer: {
 		type: Schema.ObjectId,
@@ -62,12 +64,26 @@ var OrderSchema = new Schema({
  		}
 	},
 
+	invoiceInfo: {
+		// 0: person   1: corporation
+		type: {
+			type: Number,
+			default: 0
+		},
+		content: {
+			type: String
+		}
+	},
+
 	// TODO:
 	shipOption: {
 		type: String
 	},
     
 	payment: {
+		type: {
+			type: String,
+		},
 		merchant: {
 			type: String
 		},
@@ -92,6 +108,10 @@ var OrderSchema = new Schema({
 		detail: {
 			type: String
 		}
+	},
+
+	comment: {
+		type: String
 	},
 
 	// -1: Aborted
