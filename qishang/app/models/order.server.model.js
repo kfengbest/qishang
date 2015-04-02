@@ -28,7 +28,7 @@ var OrderSchema = new Schema({
 		ref: 'User'
 	},
 
-	orderItem: [{
+	orderItems: [{
 		product: {
 			type: Schema.ObjectId,
             ref: 'Product'

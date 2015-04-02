@@ -201,7 +201,7 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 
 		$scope.addToCart = function(product) {
 			var product = product || $scope.product;
-			ShoppingCart.addItem(product._id, product.title, product.price, 1);
+			ShoppingCart.addItem(product._id, product.title, product.thumbnail, product.price, 1);
 
 		};
 	}

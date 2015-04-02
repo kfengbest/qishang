@@ -1,5 +1,4 @@
 <section data-ng-controller="OrdersController">
-
     <!-- 收货地址 -->
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -13,14 +12,12 @@
                         <input type="text" data-ng-model="deliveryInfo.receiverName" id="receiverName" class="form-control" placeholder="" required>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="address">详细地址：</label>
                     <div class="col-sm-10">
                         <input type="text" data-ng-model="deliveryInfo.address" id="address" class="form-control" placeholder="地址" required>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="phone">手机：</label>
                     <div class="col-sm-2">
@@ -32,7 +29,6 @@
             </form>
         </div>
     </div>
-
     <!-- 支付方式 -->
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -45,13 +41,12 @@
                 </label>
             </div>
             <div class="radio">
-               <label>
-                  <input type="radio" name="payOptions" id="payOptions" value="weixin" data-ng-model="payment.type"> 微信支付
-               </label>
+                <label>
+                    <input type="radio" name="payOptions" id="payOptions" value="weixin" data-ng-model="payment.type"> 微信支付
+                </label>
             </div>
         </div>
     </div>
-
     <!-- 发票信息 -->
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -59,73 +54,78 @@
         </div>
         <div class="panel-body">
             <div class="checkbox">
-                <label><input type="checkbox" value="1" data-toggle="button" checked>需要发票</label>
+                <label>
+                    <input type="checkbox" value="1" data-toggle="button" checked>需要发票</label>
             </div>
             <div>
                 <label>发票抬头：</label>
-                <label class="checkbox-inline"> 
-                    <input type="radio" name="invoiceOptions" id="invoiceOption1" value="0" checked data-ng-model="invoiceInfo.type"> 个人 
-                    </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="invoiceOptions" id="invoiceOption1" value="0" checked data-ng-model="invoiceInfo.type"> 个人
+                </label>
                 <label class="checkbox-inline">
                     <input type="radio" name="invoiceOptions" id="invoiceOption2" value="1" data-ng-model="invoiceInfo.type"> 单位
                 </label>
             </div>
             <div>
-            <input type="text" data-ng-model="invoiceInfo.content"/>
+                <input type="text" data-ng-model="invoiceInfo.content" />
             </div>
         </div>
     </div>
-
     <!-- 购物清单 -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">购物清单</h3>
         </div>
         <div class="panel-body">
-             <table class="table table-bordered">
-                    <tr class="well">
-                        <td><b>Item</b></td>
-                        <td class="tdCenter"><b>Quantity</b></td>
-                        <td class="tdRight"><b>Price</b></td>
-                        <td />
-                    </tr>
-                    <!-- empty cart message -->
-                    <tr ng-hide="cart.getTotalCount() > 0" >
-                        <td class="tdCenter" colspan="4">
-                            Your cart is empty.
-                        </td>
-                    </tr>
-                    <!-- cart items -->
-                    <tr ng-repeat="item in cart.items | orderBy:'name'">
-                        <td>{{item.name}}</td>
-                        <td class="tdCenter">
-                          <div class="input-append">
+            <table class="table table-bordered">
+                <tr class="well">
+                    <td><b>Item</b></td>
+                    <td class="tdCenter"><b>Quantity</b></td>
+                    <td class="tdRight"><b>Price</b></td>
+                    <td />
+                </tr>
+                <!-- empty cart message -->
+                <tr ng-hide="cart.getTotalCount() > 0">
+                    <td class="tdCenter" colspan="4">
+                        Your cart is empty.
+                    </td>
+                </tr>
+                <!-- cart items -->
+                <tr ng-repeat="item in cart.items | orderBy:'name'">
+                    <td>
+                        <div class="content-heading">
+                            <a class="pull-left" data-ng-href="#!/products/{{item.sku}}">
+                                <img data-ng-href="#!/products/{{item.sku}}" data-ng-src="{{item.thumbnail}}" />
+                            </a>
+                            <h3><a data-ng-href="#!/products/{{item.sku}}" class="hand">{{item.name}}</a></h3>
+                        </div>
+                    </td>
+                    <td class="tdCenter">
+                        <div class="input-append">
                             <span> {{item.quantity}}</span>
                             <!-- <input class="span3 text-center" type="tel"  ng-change="cart.saveItems()" /> -->
                             <!-- <button class="btn btn-success" type="button" ng-disabled="item.quantity >= 1000" ng-click="cart.addItem(item.sku, item.name, item.price, +1)">+</button>
                             <button class="btn btn-inverse" type="button" ng-disabled="item.quantity <= 1" ng-click="cart.addItem(item.sku, item.name, item.price, -1)">-</button> -->
-                          </div>
-                        </td>
-                        <td class="tdRight">{{item.price * item.quantity | currency:"￥ "}}</td>
-                        <td class="tdCenter" title="remove from cart">
-                            <a href="" ng-click="cart.addItem(item.sku, item.name, item.price, -10000000)" >
-                                <i class="icon-remove" />
-                            </a>
-                        </td>
-                    </tr>
-
-                    <!-- footer -->
-                    <tr class="well">
-                        <td><b>Total</b></td>
-                        <td class="tdCenter"><b>{{cart.getTotalCount()}}</b></td>
-                        <td class="tdRight"><b>{{cart.getTotalPrice() | currency:"￥ "}}</b></td>
-                        <td />
-                    </tr>
-                </table>
+                        </div>
+                    </td>
+                    <td class="tdRight">{{item.price * item.quantity | currency:"￥ "}}</td>
+                    <td class="tdCenter" title="remove from cart">
+                        <a href="" ng-click="cart.addItem(item.sku, item.name, item.price, -10000000)">
+                            <i class="icon-remove" />
+                        </a>
+                    </td>
+                </tr>
+                <!-- footer -->
+                <tr class="well">
+                    <td><b>Total</b></td>
+                    <td class="tdCenter"><b>{{cart.getTotalCount()}}</b></td>
+                    <td class="tdRight"><b>{{cart.getTotalPrice() | currency:"￥ "}}</b></td>
+                    <td />
+                </tr>
+            </table>
         </div>
     </div>
-
-     <!-- 留言 -->
+    <!-- 留言 -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">留言</h3>
@@ -134,7 +134,6 @@
             <Textarea class="form-control" rows="3" data-ng-model="comment" id="comment" placeholder="留言，特殊要求"> </Textarea>
         </div>
     </div>
-
     <!-- 提交 -->
     <div class="well clearfix">
         <div class="pull-right">
@@ -142,5 +141,4 @@
             <button type="button" class="btn btn-danger" ng-click="checkout()">提交订单</button>
         </div>
     </div>
- 
 </section>

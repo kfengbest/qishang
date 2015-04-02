@@ -14,7 +14,7 @@ angular.module('orders').controller('OrdersController', ['$scope', '$stateParams
 			// Create new Order object
 			var order = new Orders ({
 				name: this.name,
-				orderItem: [],
+				orderItems: [],
 				totalPrice: $scope.cart.getTotalPrice(),
 				deliveryInfo: this.deliveryInfo,
 				invoiceInfo: this.invoiceInfo,
@@ -24,7 +24,7 @@ angular.module('orders').controller('OrdersController', ['$scope', '$stateParams
 			});
 
 		   for(var i = 0; i < $scope.cart.items.length; i++) {
-		   	order.orderItem.push({product: $scope.cart.items[i].sku, unitPrice: $scope.cart.items[i].price, quantity: $scope.cart.items[i].quantity});
+		   	order.orderItems.push({product: $scope.cart.items[i].sku, unitPrice: $scope.cart.items[i].price, quantity: $scope.cart.items[i].quantity});
 		   }
 
 			// Redirect after save

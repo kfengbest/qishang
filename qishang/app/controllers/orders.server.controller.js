@@ -90,8 +90,9 @@ exports.list = function(req, res) {
 /**
  * Order middleware
  */
-exports.orderByID = function(req, res, next, id) { 
-	Order.findById(id).populate('customer', 'displayName').exec(function(err, order) {
+exports.orderByID = function(req, res, next, id) {
+	var populateQuery = [{path:'customer', select:'displayName'}, {path: 'orderItems.product', select: 'title thumbnail description'}];
+	Order.findById(id).populate(populateQuery).exec(function(err, order) {
 		if (err) return next(err);
 		if (! order) return next(new Error('Failed to load Order ' + id));
 		req.order = order ;
