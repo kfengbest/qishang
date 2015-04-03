@@ -2,32 +2,25 @@
     <div class="page-header">
         <h1>Products</h1>
     </div>
-
-    <div class="container list-group">
-        <div class="list-group-item row" data-ng-repeat="product in products">
-            <div class="col-md-2">
-                <a data-ng-href="#!/products/{{product._id}}">
-                    <img data-ng-href="#!/products/{{product._id}}"  data-ng-src="{{product.thumbnail}}" title="{{product.name}}" />
-                </a>
-            </div>
-            <div class="col-md-8">
-                <h3><a data-ng-href="#!/products/{{product._id}}" class="hand">{{product.title}}</a> &nbsp;
-                </h3>
-                <p>{{product.description}}</p>
-                <span>种类: {{product.categories}}</span>
-                <span>关键字: {{product.keywords}}</span>
-                <span>场景: {{product.scenarios}}</span>
-                <span>特色: {{product.usages}}</span>
-            </div>
-            <div class="col-md-2">
+    <ul class="products">
+        <li class="thumbnail product-listing" data-ng-repeat="product in products">
+            <a data-ng-href="#!/products/{{product._id}}" class="thumb">
+                <img data-ng-href="#!/products/{{product._id}}" data-ng-src="{{product.thumbnail}}" title="{{product.name}}" />
+            </a>
+            <a data-ng-href="#!/products/{{product._id}}" class="hand">{{product.title}}</a>
+            <p>{{product.description}}</p>
+            <span>种类: {{product.categories}}</span>
+            <span>关键字: {{product.keywords}}</span>
+            <span>场景: {{product.scenarios}}</span>
+            <span>特色: {{product.usages}}</span>
+            <div class="pull-right">
                 <button class="button" id="button-cart" ng-click="addToCart(product)">
                     <span class="fa fa-shopping-cart icon"></span>
                     <span>Add to Cart</span>
                 </button>
             </div>
-            <hr/>
-        </div>
-    </div>
+        </li>
+    </ul>
     <div class="alert alert-warning text-center" data-ng-hide="!products.$resolved || products.length">
         No Products yet, why don't you <a href="/#!/products/create">create one</a>?
     </div>

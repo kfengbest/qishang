@@ -8,30 +8,24 @@
                 <h3 class="panel-title">购物清单</h3>
             </div>
             <div class="panel-body">
-                <table class="table table-bordered">
-                    <tr class="well">
-                        <td><b>Item</b></td>
-                        <td class="tdCenter"><b>Quantity</b></td>
-                        <td class="tdRight"><b>Price</b></td>
-                        <td />
-                    </tr>
-                    <tr ng-repeat="item in order.orderItems | orderBy:'name'">
-                        <td>
-                            <div class="content-heading">
-                                <a class="pull-left" data-ng-href="#!/products/{{item.product._id}}">
-                                    <img data-ng-href="#!/products/{{item.product._id}}" data-ng-src="{{item.product.thumbnail}}" />
+                <ul class="products">
+                    <li ng-repeat="item in order.orderItems | orderBy:'name'" class="thumbnail product-listing">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <a class="pull-left thumb" data-ng-href="#!/products/{{item.product._id}}">
+                                    <img class="img-responsive" data-ng-href="#!/products/{{item.product._id}}" data-ng-src="{{item.product.thumbnail}}" />
                                 </a>
-                                <h3><a data-ng-href="#!/products/{{item.product._id}}" class="hand">{{item.product.title}}</a></h3>
+                                <h4><a data-ng-href="#!/products/{{item.product._id}}" class="hand">{{item.product.title}}</a></h4>
                             </div>
-                        </td>
-                        <td class="tdCenter">
-                            <div class="input-append">
-                                <span> {{item.quantity}}</span>
+                            <div class="col-md-1">
+                                <span>{{item.quantity}}</span>
                             </div>
-                        </td>
-                        <td class="tdRight">{{item.unitPrice * item.quantity | currency:"￥ "}}</td>
-                    </tr>
-                </table>
+                            <div class="col-md-2">
+                                <span>{{item.unitPrice * item.quantity | currency:"￥ "}}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
