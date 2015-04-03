@@ -95,6 +95,10 @@ var OrderSchema = new Schema({
 		},
 		paidDate: {
 			type: Date
+		},
+		confirmed: {
+			type:Boolean,
+			default: false
 		}
 	},
 
@@ -113,11 +117,9 @@ var OrderSchema = new Schema({
 	comment: {
 		type: String
 	},
-
-	// -1: Aborted
-	// 0: Open, 1: Submitted 
-	// 10: deliving
-	// 100: completed
+     
+    // -1：已取消;  -2: 订单过期; -10：配送失败
+	//  0: 待付款； 1： 待确认； 2： 配送中； 3： 配送完成； 10： 订单关闭
 	status: {
 		type: Number,
 		default: 0

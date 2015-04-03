@@ -1,11 +1,56 @@
 <section data-ng-controller="OrdersController" data-ng-init="findOne()">
     <div class="page-header">
-        <h1 data-ng-bind="order.name"></h1>
+        <h3>订单详情 - {{order.orderID}}</h3>
     </div>
-    <div>
+    <div >
+        <!-- 订单基本信息 -->
+        <div class="detail">
+            <dl class="dl-horizontal">
+                <dt>买家留言:</dt> <dd>{{order.comment}}</dd>
+                <br/>
+                <dt>订单编号:</dt> <dd>{{order.orderID}}
+                <dt>订单状态:</dt> 
+                <dd><span class="label" ng-class="{'label-default': order.status >= -2 && order.status <= -1, 'label-info': order.status == 0, 'label-primary': order.status >= 1 && order.status <= 3, 'label-success': rder.status >=10, 'label-danger': order.status< -10 }">{{order.status | orderStatus}}</span></dd>
+            </dl>
+           
+            <ul class="list-inline ">
+                <li>
+                     <dl class="dl-horizontal">
+                        <dt>交易时间:</dt> <dd>{{order.created |  date:"yyyy-MM-dd hh:mm:ss"}}</dd>
+                        <dt>付款时间:</dt> <dd>{{order.payment.paidDate |  date:"yyyy-MM-dd hh:mm:ss"}}</dd>
+                        <dt>发货时间:</dt> <dd>{{order.shipped |  date:"yyyy-MM-dd hh:mm:ss"}}</dd>
+                     </dl>
+                </li>
+                <li style="margin-left: 80px;">
+                     <dl class="dl-horizontal">
+                        <dt>应收:</dt> <dd>{{order.totalPrice | currency:"￥ "}}</dd>
+                        <dt>实收:</dt> <dd>{{order.payment | currency:"￥ "}}</dd>
+                        <dt>已确认付款:</dt> <dd>{{order.payment.confirmed}}</dd>
+                     </dl>
+                </li>
+            </ul>
+            <!-- 用户信息 -->
+            <div class="media">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-circle" ng-src="{{order.customer.profile}}" alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{order.customer.displayName}}</h4>
+                    <dl class="dl-horizontal">
+                        <dt>收货人:</dt> <dd>{{order.deliveryInfo.receiverName}}</dd>
+                        <dt>手机号:</dt> <dd>{{order.deliveryInfo.phone}} &nbsp;&nbsp;&nbsp;电话: {{order.deliveryInfo.tel}}</dd>
+                        <dt>地址:</dt> <dd>{{order.deliveryInfo.address}}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- 购物清单 -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">购物清单</h3>
+                <h3 class="panel-title">明细</h3>
             </div>
             <div class="panel-body">
                 <ul class="products">
