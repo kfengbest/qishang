@@ -1,6 +1,8 @@
 <section data-ng-controller="OrdersController" data-ng-init="findOne()">
     <div class="page-header">
-        <h3>订单详情 - {{order.orderID}}</h3>
+        <h3>订单详情 - {{order.orderID}}
+            <span class="label" ng-class="{'label-default': order.status >= -2 && order.status <= -1, 'label-info': order.status == 0, 'label-primary': order.status >= 1 && order.status <= 5, 'label-success': order.status >=10, 'label-danger': order.status<= -5}">{{order.status | orderStatus}}</span>
+        </h3>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -12,8 +14,8 @@
                     <br/>
                     <dt>订单编号:</dt>
                     <dd>{{order.orderID}}
-                        <dt>订单状态:</dt>
-                        <dd><span class="label" ng-class="{'label-default': order.status >= -2 && order.status <= -1, 'label-info': order.status == 0, 'label-primary': order.status >= 1 && order.status <= 3, 'label-success': rder.status >=10, 'label-danger': order.status< -10 }">{{order.status | orderStatus}}</span></dd>
+                    <dt>订单状态:</dt>
+                    <dd>{{order.status | orderStatus}} (code: {{order.status}})</dd>
                 </dl>
                 <ul class="list-inline">
                     <li style="margin-right: 20px;">
