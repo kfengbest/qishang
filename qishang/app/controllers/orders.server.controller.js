@@ -18,7 +18,7 @@ exports.create = function(req, res) {
 	
 	order.save(function(err) {
 		if (err) {
-			console.log('Failed to submit order: ')
+			console.log('Failed to submit order: ');
 			console.log(err);
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

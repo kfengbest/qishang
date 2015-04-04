@@ -1,12 +1,11 @@
 @media (min-width: 400px) {
-.detail .dl-horizontal dt {
-    white-space: normal;
-    float: left;
-    text-align: left;
-  	width: 90px;
-}
-
-.detail .dl-horizontal dd {
-  margin-left: 100px;
-}
+    .detail .dl-horizontal dt {
+        white-space: normal;
+        float: left;
+        text-align: left;
+        width: 90px;
+    }
+    .detail .dl-horizontal dd {
+        margin-left: 100px;
+    }
 }

@@ -3,6 +3,7 @@
 // Orders controller
 angular.module('orders').controller('OrdersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Orders', 'ShoppingCart',
 	function($scope, $stateParams, $location, Authentication, Orders, ShoppingCart) {
+		var originalDeliveryInfo, originalExpressInfo;
 		$scope.authentication = Authentication;
 
 		$scope.cart = ShoppingCart;
@@ -78,7 +79,41 @@ angular.module('orders').controller('OrdersController', ['$scope', '$stateParams
 		$scope.findOne = function() {
 			$scope.order = Orders.get({ 
 				orderId: $stateParams.orderId
+			}, function(data){
+				originalDeliveryInfo = angular.copy(data.deliveryInfo);
+				originalExpressInfo = angular.copy(data.expressInfo);
 			});
+		};
+
+		// Operate Delivery & Express Info
+		$scope.editDeliveryInfo = function () {
+			$scope.editingDelivery = false;
+			$scope.update();
+			originalDeliveryInfo = angular.copy($scope.order.deliveryInfo);
+		};
+
+		$scope.resetDeliveryForm = function () {
+			$scope.order.deliveryInfo = angular.copy(originalDeliveryInfo);
+			$scope.editingDelivery = false;
+		};
+
+		$scope.deliverOrder = function () {
+			// TODO: maybe do some validation here
+			$scope.order.status = 5;
+			$scope.update();
+			$scope.editingExpress = false;
+		};
+
+		$scope.resetExpressForm = function () {
+			$scope.order.expressInfo = angular.copy(originalExpressInfo);
+			$scope.editingExpress = false;
+		};
+
+		$scope.confirmedPay = function () {
+			// TODO: just update status
+
+			$scope.order.status = 2;
+			$scope.update();
 		};
 	}
 ]);

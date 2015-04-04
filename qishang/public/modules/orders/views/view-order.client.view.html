@@ -2,75 +2,141 @@
     <div class="page-header">
         <h3>订单详情 - {{order.orderID}}</h3>
     </div>
-    <div >
-        <!-- 订单基本信息 -->
-        <div class="detail">
-            <dl class="dl-horizontal">
-                <dt>买家留言:</dt> <dd>{{order.comment}}</dd>
-                <br/>
-                <dt>订单编号:</dt> <dd>{{order.orderID}}
-                <dt>订单状态:</dt> 
-                <dd><span class="label" ng-class="{'label-default': order.status >= -2 && order.status <= -1, 'label-info': order.status == 0, 'label-primary': order.status >= 1 && order.status <= 3, 'label-success': rder.status >=10, 'label-danger': order.status< -10 }">{{order.status | orderStatus}}</span></dd>
-            </dl>
-           
-            <ul class="list-inline ">
-                <li>
-                     <dl class="dl-horizontal">
-                        <dt>交易时间:</dt> <dd>{{order.created |  date:"yyyy-MM-dd hh:mm:ss"}}</dd>
-                        <dt>付款时间:</dt> <dd>{{order.payment.paidDate |  date:"yyyy-MM-dd hh:mm:ss"}}</dd>
-                        <dt>发货时间:</dt> <dd>{{order.shipped |  date:"yyyy-MM-dd hh:mm:ss"}}</dd>
-                     </dl>
-                </li>
-                <li style="margin-left: 80px;">
-                     <dl class="dl-horizontal">
-                        <dt>应收:</dt> <dd>{{order.totalPrice | currency:"￥ "}}</dd>
-                        <dt>实收:</dt> <dd>{{order.payment | currency:"￥ "}}</dd>
-                        <dt>已确认付款:</dt> <dd>{{order.payment.confirmed}}</dd>
-                     </dl>
-                </li>
-            </ul>
-            <!-- 用户信息 -->
-            <div class="media">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object img-circle" ng-src="{{order.customer.profile}}" alt="...">
-                    </a>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- 订单基本信息 -->
+            <div class="detail">
+                <dl class="dl-horizontal">
+                    <dt>买家留言:</dt>
+                    <dd>{{order.comment}}</dd>
+                    <br/>
+                    <dt>订单编号:</dt>
+                    <dd>{{order.orderID}}
+                        <dt>订单状态:</dt>
+                        <dd><span class="label" ng-class="{'label-default': order.status >= -2 && order.status <= -1, 'label-info': order.status == 0, 'label-primary': order.status >= 1 && order.status <= 3, 'label-success': rder.status >=10, 'label-danger': order.status< -10 }">{{order.status | orderStatus}}</span></dd>
+                </dl>
+                <ul class="list-inline">
+                    <li style="margin-right: 20px;">
+                        <dl class="dl-horizontal">
+                            <dt>交易时间:</dt>
+                            <dd>{{order.created | date:"yyyy-MM-dd hh:mm:ss"}}</dd>
+                            <dt>付款时间:</dt>
+                            <dd>{{order.payment.paidDate | date:"yyyy-MM-dd hh:mm:ss"}}</dd>
+                            <dt>发货时间:</dt>
+                            <dd>{{order.shipped | date:"yyyy-MM-dd hh:mm:ss"}}</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl class="dl-horizontal">
+                            <dt>应收:</dt>
+                            <dd>{{order.totalPrice | currency:"￥ "}}</dd>
+                            <dt>实收:</dt>
+                            <dd>{{order.payment | currency:"￥ "}}</dd>
+                            <dt>已确认付款:</dt>
+                            <dd>{{order.payment.confirmed}}</dd>
+                        </dl>
+                    </li>
+                </ul>
+                <!-- 用户信息 -->
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-circle" ng-src="{{order.customer.profile}}" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{order.customer.displayName}}
+                            <div class="pull-right">
+                                <button class="btn btn-primary btn-xs" ng-hide="editingDelivery" ng-click="editingDelivery = !editingDelivery"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;修改</button>
+                                <button class="btn btn-primary btn-xs" ng-show="editingDelivery" ng-click="resetDeliveryForm()"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>&nbsp;返回</button>
+                            </div>
+                        </h4>
+                        <dl class="dl-horizontal" ng-hide="editingDelivery">
+                            <dt>收货人:</dt>
+                            <dd>{{order.deliveryInfo.receiverName}}</dd>
+                            <dt>手机号:</dt>
+                            <dd>{{order.deliveryInfo.phone}} &nbsp;&nbsp;&nbsp;电话: {{order.deliveryInfo.tel}}</dd>
+                            <dt>地址:</dt>
+                            <dd>{{order.deliveryInfo.address}}</dd>
+                        </dl>
+                        <form name="deliveryForm" ng-show="editingDelivery" ng-submit="editDeliveryInfo()" novalidate>
+                            <div class="form-group">
+                                <label for="receiverName" class="control-label">收货人:</label>
+                                <input id="receiverName" type="text" class="form-control" ng-model="order.deliveryInfo.receiverName" required/>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                <label for="receiverPhone" class="control-label">手机号:</label>
+                                <input id="receiverPhone" type="text" class="form-control" ng-model="order.deliveryInfo.phone" ng-required="!order.deliveryInfo.tel"/>
+                                </div> 
+                                 <div class="col-md-6">
+                                <label for="receiverTel" class="control-label">电话:</label>
+                                <input id="receiverTel" type="text" class="form-control" ng-model="order.deliveryInfo.tel"/>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="receiverAddress" class="control-label">地址:</label>
+                                <input id="receiverAddress" class="form-control" ng-model="order.deliveryInfo.address" ng-required/>
+                            </div>
+                            <button class="btn btn-success" type="submit" ng-disabled="deliveryForm.$invalid">保存</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="media-body">
-                    <h4 class="media-heading">{{order.customer.displayName}}</h4>
-                    <dl class="dl-horizontal">
-                        <dt>收货人:</dt> <dd>{{order.deliveryInfo.receiverName}}</dd>
-                        <dt>手机号:</dt> <dd>{{order.deliveryInfo.phone}} &nbsp;&nbsp;&nbsp;电话: {{order.deliveryInfo.tel}}</dd>
-                        <dt>地址:</dt> <dd>{{order.deliveryInfo.address}}</dd>
+                <!-- 快递信息 -->
+                <div>
+                    <h3>
+                        <span class="label label-default">快递信息</span>
+                        <button class="btn btn-primary btn-xs" ng-hide="editingExpress" ng-click="editingExpress = !editingExpress"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;录入</button>
+                        <button class="btn btn-primary btn-xs" ng-show="editingExpress" ng-click="resetExpressForm()"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>&nbsp;返回</button>
+                    </h3>
+                    <dl class="dl-horizontal" ng-hide="editingExpress">
+                        <dt>快递号:</dt>
+                        <dd>{{order.expressInfo.id}}</dd>
                     </dl>
+                    <form name="expressForm" class="form-horizontal" role="form" ng-show="editingExpress" ng-submit="deliverOrder()" novalidate>
+                        <div class="form-group">
+                            <label for="expressNumber" class="col-sm-2 control-label">快递号:</label>
+                            <div class="col-sm-6">
+                                <input id="expressNumber" type="text" class=" form-control" ng-model="order.expressInfo.id" required />
+                            </div>
+                            <div class="pull-right">
+                                <button class="btn btn-success" type="submit" ng-disabled="expressForm.$invalid">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <button class="btn btn-success" ng-disabled="order.status != 1" ng-click="confirmedPay()">确认收款</button>
+                    <button class="btn btn-success" ng-disabled="order.status != 2" ng-click="deliverOrder()">发货</button>
                 </div>
             </div>
         </div>
- 
-        <!-- 购物清单 -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">明细</h3>
-            </div>
-            <div class="panel-body">
-                <ul class="products">
-                    <li ng-repeat="item in order.orderItems | orderBy:'name'" class="thumbnail product-listing">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <a class="pull-left thumb" data-ng-href="#!/products/{{item.product._id}}">
-                                    <img class="img-responsive" data-ng-href="#!/products/{{item.product._id}}" data-ng-src="{{item.product.thumbnail}}" />
-                                </a>
-                                <h4><a data-ng-href="#!/products/{{item.product._id}}" class="hand">{{item.product.title}}</a></h4>
+        <div class="col-md-6">
+            <!-- 购物清单 -->
+            <div class="panel panel-info">
+                <div class="panel-heading">明细</div>
+                <div class="panel-body">
+                    <ul class="products">
+                        <li ng-repeat="item in order.orderItems | orderBy:'name'" class="thumbnail product-listing">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <a class="pull-left thumb" data-ng-href="#!/products/{{item.product._id}}">
+                                        <img class="img-responsive" data-ng-href="#!/products/{{item.product._id}}" data-ng-src="{{item.product.thumbnail}}" />
+                                    </a>
+                                    <h4><a data-ng-href="#!/products/{{item.product._id}}" class="hand">{{item.product.title}}</a></h4>
+                                </div>
+                                <div class="col-md-1">
+                                    <span>{{item.quantity}}</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span>{{item.unitPrice * item.quantity | currency:"￥ "}}</span>
+                                </div>
                             </div>
-                            <div class="col-md-1">
-                                <span>{{item.quantity}}</span>
-                            </div>
-                            <div class="col-md-2">
-                                <span>{{item.unitPrice * item.quantity | currency:"￥ "}}</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
